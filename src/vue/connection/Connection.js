@@ -9,13 +9,14 @@ import {View,
         } from 'react-native';
 import ConnectionStyles from './ConnectionStyles';
 
-import test from './test';
+import Test from './test';
 import Logo from './images/notre_logo_2_png.png';
 import LogC from './images/logout-512.png';
 import Eye from './images/iconEye.png';
 import NoEye from './images/no_eye.png';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import Menu from '../../../Menu';
 
 
 class Connection extends Component{
@@ -24,7 +25,7 @@ class Connection extends Component{
  //valuer de champ
    constructor() {
      super()
-	 //il state kima il var 
+	 //il state kima il var
      this.state ={
        showPass: true,
        press: false,
@@ -42,7 +43,7 @@ class Connection extends Component{
 
   goToTest = () => {
          if(this.state.Email == 'Pdg' && this.state.Motp == '123'){
-          this.props.navigation.navigate('test');
+          this.props.navigation.navigate('Test');
 
           }
           else{
@@ -50,6 +51,10 @@ class Connection extends Component{
 
           }
       };
+
+      goToMenu = () => {
+       this.props.navigation.navigate('Menu');
+     };
 
   goToInscription = () => {
    this.props.navigation.navigate('Inscription');
@@ -69,7 +74,7 @@ class Connection extends Component{
                 style={ConnectionStyles.input}
                 placeholder={'Email'}
                 placeholderTextColor={'#3c40c6'}
-				//il onchangetext tbadel il var 7aseb il champ eli ktebtu w il value hiya nafes value il 3adiya 
+				//il onchangetext tbadel il var 7aseb il champ eli ktebtu w il value hiya nafes value il 3adiya
                  onChangeText={(value) => this.setState({Email: value})}
                  value={this.state.Email}
                 underlineColorAndroid='transparent'
@@ -100,7 +105,7 @@ class Connection extends Component{
 
           <View>
 
-          <TouchableOpacity onPress={this.goToTest} style={ConnectionStyles.btn}>
+          <TouchableOpacity onPress={this.goToMenu} style={ConnectionStyles.btn}>
                         <Image source={LogC} style={ConnectionStyles.Logobtn} />
                     </TouchableOpacity>
           </View>
