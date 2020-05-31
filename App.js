@@ -16,12 +16,6 @@ class Produit extends Component {
   }
 }
 
-
-
-
-
-
-
 const Navigation = createStackNavigator({
 
   Authentification: {screen:Home},

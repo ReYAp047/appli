@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {View, Text,Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import {View, Text,Image, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
 import {StackNavigator} from "react-navigation";
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import RNPickerSelect from 'react-native-picker-select';
-
+import Produit from '../../Modele/produit/Produit';
+import {ajouterProduit} from '../../controleur/produit/crudProduit';
 
 
  export default class AjouterProd extends Component {
@@ -25,6 +26,17 @@ onProduitAjouter = (produit) => {
   console.log(produit);
 }
 
+ajouter = () => {
+this.produit=new Produit();
+this.produit.code=this.state.produitItemActuel;
+this.produit.codeBarre=this.state.produitcodeBarrectuel;
+this.produit.nom=this.state.produitNomActuel;
+this.produit.date=this.state.produitDateActuel;
+this.produit.heur=this.state.produitHeurActuel;
+this.produit.quentite=this.state.produitQuentiteActuel;
+this.produit.fournniseur=this.state.produitFournisseurActuel;
+ajouterProduit(this.produit);
+};
 
 
    render(){
@@ -226,22 +238,11 @@ onProduitAjouter = (produit) => {
                 </TouchableOpacity>
               </View>
               <View>
-                <TouchableOpacity onPress={() =>
-                ajouterProduit(
-                                {
-                                  code: this.state.produitItemActuel,
-                                  codeBarre: this.state.produitcodeBarrectuel,
-                                  nom: this.state.produitNomActuel,
-                                  date: this.state.produitDateActuel,
-                                  heur: this.state.produitHeurActuel,
-                                  quentite: this.state.produitQuentiteActuel,
-                                  fournisseur: this.state.produitFournisseurActuel,
 
-                                },
 
-                              )
-                            }
-                  >
+
+
+                <TouchableOpacity onPress={this.ajouter}  >
                   <Text style={{marginTop: '10%',marginRight: '9%',fontSize: 17}}>Enregistrer</Text>
                 </TouchableOpacity>
               </View>
