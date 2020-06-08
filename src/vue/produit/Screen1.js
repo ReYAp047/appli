@@ -1,26 +1,32 @@
 //This is an example code for NavigationDrawer//
 import React, { Component } from 'react';
 //import react in our code.
-import { StyleSheet, View, Text,Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text,Image, TouchableOpacity, FlatList } from 'react-native';
 // import all basic components
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import AjouterProd from './AjouterProd';
 import Screen6 from './Screen6';
-
+import {listProduits} from '../../controleur/produit/crudProduit';
 
 
   class Screen1 extends Component {
   //Screen1 Component
 
 
-
 goToAjouterProd = () => {
   this.props.navigation.navigate('AjouterProd');
 };
 
+listAffiche = () => {
+  this.listProduits();
+};
 
+
+componentDidMount(){
+this.listAffiche;
+}
   render() {
     return (
 <View style={{flex: 1, flexDirection: 'column'}}>
@@ -57,6 +63,9 @@ goToAjouterProd = () => {
 
    </View>
 {/*//ce view dessou c'est le view qui considaire l'affichages des produits*/}
+  <FlatList
+    data={foo}
+    renderItem={({ item }) => (
    <View style={{flexDirection: 'row',marginTop: 13}}>
 
      <View style={{flex: 1,marginTop: 7}}>
@@ -67,11 +76,11 @@ goToAjouterProd = () => {
      </View>
 
      <View style={{flex: 5,marginTop: 7}}>
-         <Text style={{ fontSize: 20 }}> Produit1 </Text>
+         <Text style={{ fontSize: 20 }}> {item.nom} </Text>
      </View>
 
      <View style={styles.produit_circle} >
-        <Text style={styles.circle_produit_text}>8</Text>
+        <Text style={styles.circle_produit_text}>{item.quentite}</Text>
      </View>
      <View style={{flex: 1}}>
         <Image
@@ -81,6 +90,8 @@ goToAjouterProd = () => {
      </View>
 
    </View>
+ )}
+/>
 {/*// Fin affichage des produits  */}
   {/* le view ci dessou est une line verticale */}
       <View style={{borderBottomColor: 'black',borderBottomWidth: 1,}}  />

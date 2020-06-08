@@ -1,5 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
-import { Alert } from 'react-native';
+import React, { useState, useEffect, Component } from 'react';
+import { ActivityIndicator, FlatList, View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 export function ajouterProduit(produit){
   const code=produit.code;
@@ -26,4 +29,39 @@ export function ajouterProduit(produit){
     });
 
 
+}
+
+
+
+
+export function listProduits() {
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
+  const [produits, setProduits] = useState([]); // Initial empty array of Produits
+
+  useEffect(() => {
+  const subscriber = firestore()
+    .collection('Produits')
+    .onSnapshot(querySnapshot => {
+      const produits = [];
+
+      querySnapshot.forEach(documentSnapshot => {
+        produits.push({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.code,
+        });
+      });
+
+      setProduits(produits);
+      setLoading(false);
+    });
+
+  // Unsubscribe from events when no longer in use
+  return () => subscriber();
+}, []);
+
+if (loading) {
+  return <ActivityIndicator />;
+}
+  console.log('Appel List Des Produits');
+global.foo = produits;
 }
