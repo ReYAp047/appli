@@ -11,9 +11,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Screen1 from './src/vue/produit/Screen1';
 import Screen2 from './src/vue/produit/Screen2';
 import Screen3 from './src/vue/produit/Screen3';
-import Screen4 from './src/vue/produit/Screen4';
-import Screen5 from './src/vue/produit/Screen5';
+import Screen4 from './root/Fournisseur';
+import Screen5 from './root//Client';
 import Screen6 from './src/vue/produit/Screen6';
+import List_Produits from './src/vue/produit/List_Produits';
 import AjouterProd from './src/vue/produit/AjouterProd';
 
 
@@ -227,7 +228,26 @@ const AjouterProd_StackNavigator = createStackNavigator({
   },
 });
 
+const List_Produits_StackNavigator = createStackNavigator({
+  //All the screen from the Screen6 will be indexed here
+  addProd: {
+    screen: List_Produits,
+    navigationOptions: ({ navigation }) => ({
 
+      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#0099FF',
+
+
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 0,
+        },
+    }),
+  },
+});
 
 
 
@@ -286,9 +306,19 @@ const DrawerNavigatorExample = createDrawerNavigator({
   AjouterProd: {
     //Title
     screen: AjouterProd_StackNavigator,
-
+    navigationOptions: {
+      drawerLabel: ' ',
+    },
+  },
+  List_Produits: {
+    //Title
+    screen: List_Produits_StackNavigator,
+    navigationOptions: {
+      drawerLabel: ' ',
+    },
   },
 });
+
 
 
 const styles = StyleSheet.create({

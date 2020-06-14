@@ -1,17 +1,19 @@
-//This is an example code for NavigationDrawer//
-import React, { Component } from 'react';
-//import react in our code.
-import { StyleSheet, View, Text } from 'react-native';
-// import all basic components
+import React, { useState, useEffect, Component } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import {createAppContainer, DrawerItems,} from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+export default class Screen2 extends Component {
+  static navigationOptions ={
+    title: 'Contoleur',
 
-export default class Screen3 extends Component {
-  //Screen3 Component
+  };
   render() {
     return (
-      <View style={styles.MainContainer}>
-        <Text style={{ fontSize: 23 }}> Controleur </Text>
-      </View>
-    );
+    <View style={styles.MainContainer}>
+      <Text style={{ fontSize: 23 }}> Contoleur </Text>
+    </View>
+  );
   }
 }
 

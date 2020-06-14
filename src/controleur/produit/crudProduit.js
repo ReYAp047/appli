@@ -34,7 +34,22 @@ export function ajouterProduit(produit){
 
 
 
-export function listProduits() {
+export function nombreProduits(){
+  var query = firestore().collection('Produits');
+
+  query.get().then(querySnapshot => {
+      global.bar = querySnapshot.size;
+
+
+  });
+
+
+  
+}
+
+
+
+export function afficheProduits () {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [produits, setProduits] = useState([]); // Initial empty array of Produits
 
@@ -45,12 +60,13 @@ export function listProduits() {
       const produits = [];
 
       querySnapshot.forEach(documentSnapshot => {
+
         produits.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.code,
         });
-      });
 
+      });
       setProduits(produits);
       setLoading(false);
     });
@@ -59,9 +75,8 @@ export function listProduits() {
   return () => subscriber();
 }, []);
 
-if (loading) {
-  return <ActivityIndicator />;
-}
-  console.log('Appel List Des Produits');
-global.foo = produits;
+
+
+console.log('list prod');
+  global.foo = produits;
 }
