@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList
 } from 'react-native';
 
 import FournisseurStyles from './FournisseurStyles';
@@ -15,41 +16,65 @@ import Add from './images/add-user.png';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-function goToDetailFournisseur() {
+import {afficheFournisseurs} from '../../controleur/menu/crudFournisseur';
 
-}
+function goToDetailFournisseur(){
 
+};
 function goToAjoutFournisseur(){
 
-}
+};
 export default function Fournisseur(){
+afficheFournisseurs();
     return(
-      <View style={FournisseurStyles.Container}>
-           <View style={{marginTop: '10%'}}>
-                <View style={FournisseurStyles.Test}>
+           <View>
+            <View style={{marginTop: '9%'}}>
+                {/*/debut fournisseur list*/}
+                <FlatList  
+                    data={fr}
+                    renderItem={({ item }) => (
+
+                <View style={{flexDirection: 'column'}}>
+                    <View style={{flexDirection: 'row'}}>
+
+                      <View style={{flex: 4}}>
+                        <TouchableOpacity  onPress={goToDetailFournisseur()}>
+                          <Text style={FournisseurStyles.Text}> {item.nom} </Text>
+                        </TouchableOpacity>
+                      </View>
+
+                      <View>
+                        <Image source={Call} style={FournisseurStyles.Iconcall} />
+                      </View>
+
+                      <View>
+                        <Image source={Mesg} style={FournisseurStyles.Iconmsg} />
+                      </View>
+
+                    </View>
 
 
-                <TouchableOpacity  onPress={goToDetailFournisseur()}>
-                   <Text style={FournisseurStyles.Text}> Nom Fournisseur </Text>
-                 </TouchableOpacity>
+                     <View>
+                       <View style={{width: '100%' ,height: 1,backgroundColor: '#000000',marginTop: '1%'}}/>
+                     </View>
+                </View>
+              )}
+             />
+             </View>
+                 {/*fin fournisseur list*/}
 
 
-
-                   <Image source={Call} style={FournisseurStyles.Iconcall} />
-                   <Image source={Mesg} style={FournisseurStyles.Iconmsg} />
-
+               <View style={{flex: 1,flexDirection: 'row-reverse'}}>
+                 <View style={{justifyContent: 'flex-end',marginBottom: 36,marginRight:'5%'}}>
+                   <TouchableOpacity  onPress={goToAjoutFournisseur()}>
+                    <Image source={Add} style={FournisseurStyles.Iconadd} />
+                   </TouchableOpacity>
                  </View>
-                 <View>{ /*cree le lign*/}
-                   <View style={{width: '100%' ,height: 1,backgroundColor: '#000000'}}/>
-                 </View>
-
-               <View>
-                 <TouchableOpacity  onPress={goToAjoutFournisseur()}>
-               <Image source={Add} style={FournisseurStyles.Iconadd} />
-                 </TouchableOpacity>
               </View>
-        </View>
-      </View>
+
+          </View>
+
+
     );
 
 

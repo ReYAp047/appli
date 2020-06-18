@@ -39,15 +39,14 @@ const FournisseurStyles =StyleSheet.create({
  Iconadd: {
    width: 55,
    height: 55,
-   marginTop: '135%',
-   marginLeft: '80%'
+marginTop: '10%'
  },
 
   Iconuser: {
     width: 50,
     height: 50,
     marginLeft: '40%',
-    marginTop: '5%'
+    marginTop: '7%'
   },
 
  Icontel: {

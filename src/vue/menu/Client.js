@@ -64,12 +64,10 @@ afficheClients();
                  {/*fin client list*/}
 
 
-               <View style={{flex: 1,flexDirection: 'row-reverse'}}>
-                 <View style={{justifyContent: 'flex-end',marginBottom: 36,marginRight:'5%'}}>
-                   <TouchableOpacity  onPress={goToAjoutClient()}>
-                    <Image source={Add} style={ClientStyles.Iconadd} />
+               <View style={{flex: 1,flexDirection: 'row-reverse',marginRight:'5%'}}>
+                   <TouchableOpacity>
+                      <Image source={Add} style={ClientStyles.Iconadd} />
                    </TouchableOpacity>
-                 </View>
               </View>
 
           </View>
