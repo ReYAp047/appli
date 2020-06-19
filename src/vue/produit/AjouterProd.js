@@ -5,7 +5,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import RNPickerSelect from 'react-native-picker-select';
 import Produit from '../../Modele/produit/Produit';
 import {ajouterProduit} from '../../controleur/produit/crudProduit';
-
+import ImagePicker from 'react-native-image-picker';
 
  export default class AjouterProd extends Component {
 
@@ -18,8 +18,39 @@ import {ajouterProduit} from '../../controleur/produit/crudProduit';
         produitHeurActuel: null,
         produitQuentiteActuel: null,
         produitFournisseurActuel: null,
-
+        resourcePath: {},//pour le lien du photo
       }
+
+
+
+      selectFile = () => {
+        var options = {
+          title: 'Select Image',
+
+          storageOptions: {
+            skipBackup: true,
+            path: 'images',
+          },
+        };
+
+        ImagePicker.showImagePicker(options, res => {
+          console.log('Response = ', res);
+
+          if (res.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (res.error) {
+            console.log('ImagePicker Error: ', res.error);
+          } else {
+            let source = res;
+            this.setState({
+              resourcePath: source,
+            });
+          }
+        });
+      };
+
+
+
 
 onProduitAjouter = (produit) => {
   console.log("Produit Ajouter!!");
@@ -40,18 +71,31 @@ ajouterProduit(this.produit);
 
 
    render(){
+     const image =     <View>
+                         <TouchableOpacity onPress={this.selectFile}>
+                           <Image
+                             source={{ uri: this.state.resourcePath.uri }}
+                             style={{ width: 90, height: 85,marginRight: 15 }}
+                           />
+                         </TouchableOpacity>
+                       </View>;
+
+    const select =     <View>
+                         <TouchableOpacity onPress={this.selectFile}  >
+                            <Image
+                              source={require('./pages_images/image.png')}
+                              style={{height: 85,width: 90 ,marginRight: 15}}
+                            />
+                          </TouchableOpacity>
+                       </View>;
+
     return  (
       <View>
 
         <View><Text style={{fontSize: 17, marginLeft: '1%',marginTop: '2%', fontFamily: 'Cambria',fontWeight: '900'}}> *Ajouter au stock </Text></View>
 
         <View style={{alignItems: 'center', marginTop: '3%'}}>
-          <TouchableOpacity>
-              <Image
-                source={require('./pages_images/image.png')}
-                style={{height: 85,width: 90 ,marginRight: 15}}
-              />
-          </TouchableOpacity>
+          {this.state.resourcePath.uri ? image : select}
         </View>
 
         <View style={styles.rectangle}>
@@ -262,6 +306,29 @@ ajouterProduit(this.produit);
 
 
  const styles = StyleSheet.create({
+
+   container: {
+     flex: 1,
+     padding: 30,
+     alignItems: 'center',
+     justifyContent: 'center',
+     backgroundColor: '#fff'
+   },
+   button: {
+     width: 250,
+     height: 60,
+     backgroundColor: '#3740ff',
+     alignItems: 'center',
+     justifyContent: 'center',
+     borderRadius: 4,
+     marginBottom:12
+   },
+   buttonText: {
+     textAlign: 'center',
+     fontSize: 15,
+     color: '#fff'
+   },
+
 
      rectangle: {
         width: '100%',
