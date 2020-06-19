@@ -66,6 +66,8 @@ this.produit.date=this.state.produitDateActuel;
 this.produit.heur=this.state.produitHeurActuel;
 this.produit.quentite=this.state.produitQuentiteActuel;
 this.produit.fournniseur=this.state.produitFournisseurActuel;
+this.produit.lien=this.state.resourcePath.uri;
+console.log(this.state.resourcePath.uri);
 ajouterProduit(this.produit);
 };
 

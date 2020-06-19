@@ -12,6 +12,7 @@ export function ajouterProduit(produit){
           const heur=produit.heur;
             const quentite=produit.quentite;
               const fournniseur=produit.fournniseur;
+                const lien=produit.lien;
 
   firestore()
     .collection('Produits')
@@ -23,6 +24,8 @@ export function ajouterProduit(produit){
       heur: heur,
       quentite: quentite,
       fournniseur: fournniseur,
+      lien : lien,
+
     })
     .then(() => {
       console.log('Produit Ajouter!');
@@ -44,7 +47,7 @@ export function nombreProduits(){
   });
 
 
-  
+
 }
 
 

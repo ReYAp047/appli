@@ -6,11 +6,12 @@ quentite: int;
 nom: string;
 date: string;
 heur: string;
+lien: string;
 fournniseur: string;
 
 
 
-  constructor(code,codeBarre,quentite,nom,date,heur,fournniseur) {
+  constructor(code, codeBarre, quentite, nom, date, heur, fournniseur, lien) {
     this.code=code;
     this.codeBarre=codeBarre;
     this.quentite=quentite;
@@ -18,5 +19,6 @@ fournniseur: string;
     this.date=date;
     this.heur=heur;
     this.fournniseur=fournniseur;
+    this.lien=lien;
   }
 }
