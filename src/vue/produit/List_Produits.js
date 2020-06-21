@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 //import react in our code.
 import { StyleSheet, View, Text,Image, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { SearchBar } from 'react-native-elements'
 // import all basic components
 
 import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
@@ -22,17 +23,14 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
 
 <View style={{flex: 1, flexDirection: 'column'}}>
 
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', }}>
+  <View>
+  <SearchBar
+  round
+  lightTheme
+  noIcon
+  placeholder='Chercher un Produit ...' />
+  </View>
 
-            <View>
-              <Text style={styles.titre}>Stock</Text>
-            </View>
-
-            <View>
-              <Text style={styles.titre}>Recherche</Text>
-            </View>
-
-      </View>
 
   <View style={{flexDirection: 'row',marginTop: 7}}>
 
@@ -44,7 +42,7 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
       </View>
 
 
-      <View style={{flex: 6}}>
+      <View style={{flex: 6, marginTop: 10}}>
           <Text style={{ fontSize: 20 }}> Totale Des Produits Trouver </Text>
       </View>
 
@@ -65,12 +63,12 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
 
          <View style={{flex: 1,marginTop: 7}}>
             <Image
-              source={require('./pages_images/produit_icone.png')}
+              source={{uri: item.lien}}
               style={styles.image}
             />
          </View>
 
-         <View style={{flex: 5,marginTop: 7}}>
+         <View style={{flex: 5,marginTop: 14, marginLeft: 8}}>
              <Text style={{ fontSize: 20 }}> {item.nom} </Text>
          </View>
 
@@ -81,17 +79,18 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
          <View style={{flex: 1}}>
             <Image
               source={require('./pages_images/modifier_produit.png')}
-              style={{height: 50,width: 50}}
+              style={{height: 50,width: 50, marginTop: 7}}
             />
          </View>
 
 
        </View>
-       <View style={{borderBottomColor: 'black',borderBottomWidth: 1,}}>
+       <View style={{borderBottomColor: 'black',borderBottomWidth: 1, marginTop: 5}}>
        </View>
     </View>
 
  )}
+  keyExtractor={item => item.codeBarre}
 />
 </View>
 
@@ -148,6 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 50/2,
     backgroundColor: '#F44336',
     marginRight: 5,
+    marginTop: 5
 
 },
 circle_text:{
@@ -164,7 +164,7 @@ produit_circle:{
   borderRadius: 35/2,
   backgroundColor: '#0099FF',
   marginRight: 5,
-  marginTop: 7
+  marginTop: 14
 },
 circle_produit_text:{
   marginLeft: '30%',
@@ -176,8 +176,8 @@ circle_produit_text:{
 
 },
 image: {
-   width: 35,
-   height: 35,
+   width: 50,
+   height: 50,
    marginLeft: 7
 },
 bottom: {

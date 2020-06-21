@@ -45,7 +45,7 @@ export default class Screen4 extends Component {
     const image =     <View style={styles.container}>
                         <TouchableOpacity onPress={this.selectFile}>
                           <Image
-                            source={{ uri: this.state.resourcePath.uri }}
+                            source={{  uri: 'data:image/jpeg;base64,' + this.state.resourcePath.data,}}
                             style={{ width: 35, height: 35 }}
                           />
                         </TouchableOpacity>
