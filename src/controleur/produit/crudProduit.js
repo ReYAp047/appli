@@ -51,7 +51,6 @@ export function nombreProduits(){
 }
 
 
-
 export function afficheProduits () {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [produits, setProduits] = useState([]); // Initial empty array of Produits

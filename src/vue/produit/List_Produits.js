@@ -1,10 +1,10 @@
 //This is an example code for NavigationDrawer//
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 //import react in our code.
 import { StyleSheet, View, Text,Image, TouchableOpacity, FlatList, Alert } from 'react-native';
-import { SearchBar } from 'react-native-elements'
+import { Searchbar } from 'react-native-paper';
 // import all basic components
-
+import _ from 'lodash';
 import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -19,16 +19,36 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
    export default function List_Produits({ navigation }) {
      nombreProduits();
      afficheProduits();
+     const [query,setQuery] = useState([]);
+     const [donnee,setDonnee] = useState(foo);
+
+     useEffect(() => {
+      setDonnee(foo);
+
+     }, []);
+
+     const chercher = (text) => {
+       console.log("text",text);
+       const don = (_.filter(foo, { nom: text }));
+
+
+      if(don && don.length > 0){
+        setDonnee(don);
+      }else{
+        setDonnee(foo);
+      }
+      console.log("donnee",don);
+      console.log("foo",foo);
+
+}
     return (
 
 <View style={{flex: 1, flexDirection: 'column'}}>
-
   <View>
-  <SearchBar
-  round
-  lightTheme
-  noIcon
-  placeholder='Chercher un Produit ...' />
+  <Searchbar
+         placeholder="Chercher un Produit"
+         onChangeText={chercher}
+       />
   </View>
 
 
@@ -54,7 +74,7 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
 {/*//ce view dessou c'est le view qui considaire l'affichages des produits*/}
 <View>
 <FlatList
-    data={foo}
+    data={donnee}
     renderItem={({ item }) => (
 
 
