@@ -4,8 +4,10 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  findNodeHandle,
 } from 'react-native';
+import TextInputReset from 'react-native-text-input-reset';
 import ClientStyles from './ClientStyles';
 import User from './images/user.png';
 import Tel from './images/tel.png';
@@ -16,7 +18,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import {ajouterClient} from '../../controleur/menu/crudClient';
 import Client from '../../Modele/client/Client';
-
+import Clientjs from './Client';
   class AjoutClient  extends Component{
 
     state={
@@ -40,7 +42,13 @@ import Client from '../../Modele/client/Client';
        this.client.code=this.state.clientCodeActuel;
 
        ajouterClient(this.client);
+        this.clientNomActuel.clear();
+        this.clientTelActuel.clear();
+        this.clientMailActuel.clear();
+        this.clientAdresseActuel.clear();
+        this.clientNotesActuel.clear();
        };
+
 
   render(){
     return(
@@ -52,6 +60,7 @@ import Client from '../../Modele/client/Client';
              <TextInput
              style={ClientStyles.input}
              placeholder={'Nom Client'}
+             ref={input => { this.clientNomActuel = input }}
              placeholderTextColor={'#aaa69d'}
              underlineColorAndroid='transparent'
              value={this.state.clientNomActuel}
@@ -67,6 +76,7 @@ import Client from '../../Modele/client/Client';
          <View style={ClientStyles.Test}>
                <TextInput
                   style={ClientStyles.input}
+                  ref={input => { this.clientTelActuel = input }}
                   placeholder={'Telephone'}
                   placeholderTextColor={'#aaa69d'}
                   underlineColorAndroid='transparent'
@@ -84,6 +94,7 @@ import Client from '../../Modele/client/Client';
           <View style={ClientStyles.Test}>
             <TextInput
               style={ClientStyles.input}
+              ref={input => { this.clientMailActuel = input }}
               placeholder={'E-mail'}
               placeholderTextColor={'#aaa69d'}
               underlineColorAndroid='transparent'
@@ -100,6 +111,7 @@ import Client from '../../Modele/client/Client';
           <View>
              <TextInput
              style={ClientStyles.input}
+             ref={input => { this.clientAdresseActuel = input }}
              placeholder={'Adresse'}
              placeholderTextColor={'#aaa69d'}
              underlineColorAndroid='transparent'
@@ -115,12 +127,13 @@ import Client from '../../Modele/client/Client';
            <View>
              <TextInput
              style={ClientStyles.input}
+             ref={input => { this.clientNotesActuel = input }}
              placeholder={'Note'}
              placeholderTextColor={'#aaa69d'}
              underlineColorAndroid='transparent'
-             value={this.state.clientAdresseActuel}
+             value={this.state.clientNotesActuel}
              onChangeText={(text) => this.setState(prevState => ({
-               clientAdresseActuel: prevState.clientAdresseActuel =text
+               clientNotesActuel: prevState.clientNotesActuel =text
                }))
              }
              />

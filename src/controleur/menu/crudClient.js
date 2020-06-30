@@ -45,7 +45,7 @@ export function afficheClients () {
 
         clients.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.code,
+          key: documentSnapshot.mail,
         });
 
       });

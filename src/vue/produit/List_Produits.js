@@ -1,7 +1,13 @@
-//This is an example code for NavigationDrawer//
+  //This is an example code for NavigationDrawer//
 import React, { Component, useState, useEffect } from 'react';
 //import react in our code.
-import { StyleSheet, View, Text,Image, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { StyleSheet,
+  View,
+  Text,Image,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  TouchableWithoutFeedback } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 // import all basic components
 import _ from 'lodash';
@@ -16,6 +22,18 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
 
 
 
+class B {
+  abc() {
+    console.log("test ajoaefaz");
+  }
+}
+
+
+
+
+
+
+
    export default function List_Produits({ navigation }) {
      nombreProduits();
      afficheProduits();
@@ -24,6 +42,7 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
 
      useEffect(() => {
       setDonnee(foo);
+
 
      }, []);
 
@@ -128,7 +147,8 @@ import {nombreProduits} from '../../controleur/produit/crudProduit';
             />
         </View>
         <View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('AjouterProd')}>
+
+           <TouchableOpacity onPress={() => navigation.navigate('AjouterProd')}>
               <Image
                 source={require('./pages_images/ajouter.png')}
                 style={{height: 80,width: 90 ,marginRight: 15}}

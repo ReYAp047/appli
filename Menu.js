@@ -8,7 +8,7 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 
 //Import external files
-import Screen1 from './src/vue/produit/Screen1';
+import Home from './root/home';
 import Screen2 from './src/vue/produit/Screen2';
 import Screen3 from './src/vue/produit/Screen3';
 import Screen4 from './root/Fournisseur';
@@ -79,9 +79,9 @@ class NavigationDrawerStructure extends Component {
 }
 
 const FirstActivity_StackNavigator = createStackNavigator({
-  //All the screen from the Screen1 will be indexed here
+  //All the screen from the Home will be indexed here
   First: {
-    screen: Screen1,
+    screen: Home,
     navigationOptions: ({ navigation }) => ({
 
       headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
@@ -261,7 +261,7 @@ const DrawerNavigatorExample = createDrawerNavigator({
 
 
   //Drawer Optons and indexing
-  Screen1: {
+  Home: {
     //Title
     screen: FirstActivity_StackNavigator,
     navigationOptions: {

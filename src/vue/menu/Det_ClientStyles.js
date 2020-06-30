@@ -2,7 +2,7 @@ import {StyleSheet}from 'react-native';
 
 const Det_ClientStyles =StyleSheet.create({
 
-  Containe: {
+  Container: {
     flex: 1
   },
 
@@ -23,6 +23,7 @@ const Det_ClientStyles =StyleSheet.create({
   Iconuser: {
     width: 40,
     height: 40,
+    marginTop: 25,
     marginLeft: '5%'
 
   },
@@ -30,12 +31,14 @@ const Det_ClientStyles =StyleSheet.create({
  Icontel: {
    width: 35,
    height: 35,
+   marginTop: 25,
    marginLeft: '5%'
  },
 
  Iconemail: {
    width: 45,
    height: 45,
+   marginTop: 25,
    marginLeft: '5%'
  },
 

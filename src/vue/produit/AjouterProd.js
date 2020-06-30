@@ -69,6 +69,16 @@ this.produit.fournniseur=this.state.produitFournisseurActuel;
 this.produit.lien=this.state.resourcePath.uri;
 console.log(this.state.resourcePath.uri);
 ajouterProduit(this.produit);
+this.produitItemActuel.clear();
+this.produitcodeBarrectuel.clear();
+this.produitNomActuel.clear();
+this.produitDateActuel.clear();
+this.produitHeurActuel.clear();
+this.produitQuentiteActuel.clear();
+this.produitFournisseurActuel.clear();
+this.state.resourcePath.uri="";
+
+
 };
 
 
@@ -123,6 +133,7 @@ ajouterProduit(this.produit);
                  produitItemActuel: prevState.produitItemActuel =text
                  }))
                }
+               ref={input => { this.produitItemActuel = input }}
             />
           </View>
 
@@ -135,6 +146,7 @@ ajouterProduit(this.produit);
                    produitcodeBarrectuel: prevState.produitcodeBarrectuel =text
                  }))
                   }
+                  ref={input => { this.produitcodeBarrectuel = input }}
               />
           </View>
 
@@ -164,6 +176,7 @@ ajouterProduit(this.produit);
 
                      }))
                    }
+                   ref={input => { this.produitNomActuel = input }}
               />
         </View>
 
@@ -200,6 +213,7 @@ ajouterProduit(this.produit);
 
                    }))
                  }
+                 ref={input => { this.produitDateActuel = input }}
                    />
           </View>
 
@@ -212,6 +226,7 @@ ajouterProduit(this.produit);
                   produitHeurActuel: prevState.produitHeurActuel =text
                }))
              }
+             ref={input => { this.produitHeurActuel = input }}
                />
           </View>
 
@@ -233,6 +248,7 @@ ajouterProduit(this.produit);
 
                      }))
                    }
+                   ref={input => { this.produitQuentiteActuel = input }}
                    />
               </View>
               <View>
@@ -268,6 +284,7 @@ ajouterProduit(this.produit);
 
              }))
            }
+           ref={input => { this.produitFournisseurActuel = input }}
            />
         </View>
 

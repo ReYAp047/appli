@@ -27,7 +27,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
          fournisseurNotesActuel: null,
          fournisseurCodeActuel : null,
        }
- 
+
        ajouter = () => {
        this.fournisseur=new Fournisseur();
        this.fournisseur.nom=this.state.fournisseurNomActuel;
@@ -37,6 +37,11 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
        this.fournisseur.notes=this.state.fournisseurNotesActuel;
        this.fournisseur.code=this.state.clientCodeActuel;
        ajouterFournisseur(this.fournisseur);
+       this.fournisseurNomActuel.clear();
+       this.fournisseurTelActuel.clear();
+       this.fournisseurMailActuel.clear();
+       this.fournisseurAdresseActuel.clear();
+       this.fournisseurNotesActuel.clear();
        };
 
 
@@ -49,6 +54,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
             <View style={FournisseurStyles.Test}>
                <TextInput
                style={FournisseurStyles.input}
+               ref={input => { this.fournisseurNomActuel = input }}
                placeholder={'Nom Fournisseur'}
                placeholderTextColor={'#aaa69d'}
                underlineColorAndroid='transparent'
@@ -66,6 +72,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
        <View style={FournisseurStyles.Test}>
              <TextInput
                 style={FournisseurStyles.input}
+                ref={input => { this.fournisseurTelActuel = input }}
                 placeholder={'Telephone'}
                 placeholderTextColor={'#aaa69d'}
                 underlineColorAndroid='transparent'
@@ -86,6 +93,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
         <View style={FournisseurStyles.Test}>
           <TextInput
             style={FournisseurStyles.input}
+            ref={input => { this.fournisseurMailActuel = input }}
             placeholder={'E-mail'}
             placeholderTextColor={'#aaa69d'}
             underlineColorAndroid='transparent'
@@ -104,6 +112,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
         <View>
            <TextInput
            style={FournisseurStyles.input}
+           ref={input => { this.fournisseurAdresseActuel = input }}
            placeholder={'Adresse'}
            placeholderTextColor={'#aaa69d'}
            underlineColorAndroid='transparent'
@@ -119,6 +128,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
          <View>
            <TextInput
            style={FournisseurStyles.input}
+           ref={input => { this.fournisseurNotesActuel = input }}
            placeholder={'Note'}
            placeholderTextColor={'#aaa69d'}
            underlineColorAndroid='transparent'
