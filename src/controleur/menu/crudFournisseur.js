@@ -15,7 +15,8 @@ export function ajouterFournisseur(fournisseur){
 
   firestore()
     .collection('Fournisseurs')
-    .add({
+    .doc(tel)
+    .set({
       adresse: adresse,
       mail: mail,
       nom: nom,
@@ -61,4 +62,46 @@ export function afficheFournisseurs () {
 
 console.log('List Fournisseur charger !');
   global.fr = fournisseurs;
+}
+
+
+
+export function modifierFournisseur(fournisseur){
+  const adresse=fournisseur.adresse;
+    const mail=fournisseur.mail;
+      const nom=fournisseur.nom;
+        const notes=fournisseur.notes;
+          const tel=fournisseur.tel;
+            const code=fournisseur.code;
+
+            firestore()
+    .collection('Fournisseurs')
+    .doc(tel.toString())
+    .update({
+      adresse: adresse,
+      mail: mail,
+      nom: nom,
+      notes: notes,
+      tel: tel,
+      code: code,
+
+    })
+    .then(() => {
+      console.log('Fournisseur Modifier!');
+    });
+
+
+}
+
+
+
+export function supprimerFournisseur(tel){
+
+  firestore()
+    .collection('Fournisseurs')
+    .doc(tel.toString())
+    .delete()
+    .then(() => {
+      console.log('Fournisseur Supprimer!');
+    });
 }

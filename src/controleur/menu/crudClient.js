@@ -15,7 +15,8 @@ export function ajouterClient(client){
 
   firestore()
     .collection('Clients')
-    .add({
+    .doc(tel)
+    .set({
       adresse: adresse,
       mail: mail,
       nom: nom,
@@ -45,7 +46,7 @@ export function afficheClients () {
 
         clients.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.mail,
+          key: documentSnapshot.tel,
         });
 
       });
@@ -61,4 +62,47 @@ export function afficheClients () {
 
 console.log('List Client charger !');
   global.cl = clients;
+}
+
+
+
+
+
+
+export function modifierClient(client){
+  const adresse=client.adresse;
+    const mail=client.mail;
+      const nom=client.nom;
+        const notes=client.notes;
+          const tel=client.tel;
+            const code=client.code;
+
+            firestore()
+              .collection('Clients')
+              .doc(tel.toString())
+              .update({
+                adresse: adresse,
+                mail: mail,
+                nom: nom,
+                notes: notes,
+                tel: tel,
+                code: code,
+              })
+              .then(() => {
+                console.log('Client Modifier!');
+              });
+
+
+}
+
+
+export function supprimerClient(tel){
+
+  firestore()
+    .collection('Clients')
+    .doc(tel.toString())
+    .delete()
+    .then(() => {
+      console.log('Client Supprimer!');
+    });
 }

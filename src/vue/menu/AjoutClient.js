@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Alert,
   findNodeHandle,
 } from 'react-native';
 import TextInputReset from 'react-native-text-input-reset';
@@ -42,6 +43,7 @@ import Clientjs from './Client';
        this.client.code=this.state.clientCodeActuel;
 
        ajouterClient(this.client);
+       Alert.alert("Le Client::"+ this.client.nom+"est Ajouter avec succès!!");
         this.clientNomActuel.clear();
         this.clientTelActuel.clear();
         this.clientMailActuel.clear();
@@ -78,6 +80,7 @@ import Clientjs from './Client';
                   style={ClientStyles.input}
                   ref={input => { this.clientTelActuel = input }}
                   placeholder={'Telephone'}
+                  keyboardType='numeric'
                   placeholderTextColor={'#aaa69d'}
                   underlineColorAndroid='transparent'
                   value={this.state.clientTelActuel}
@@ -96,6 +99,7 @@ import Clientjs from './Client';
               style={ClientStyles.input}
               ref={input => { this.clientMailActuel = input }}
               placeholder={'E-mail'}
+              keyboardType='email-address'
               placeholderTextColor={'#aaa69d'}
               underlineColorAndroid='transparent'
               value={this.state.clientMailActuel}
@@ -129,6 +133,7 @@ import Clientjs from './Client';
              style={ClientStyles.input}
              ref={input => { this.clientNotesActuel = input }}
              placeholder={'Note'}
+             multiline
              placeholderTextColor={'#aaa69d'}
              underlineColorAndroid='transparent'
              value={this.state.clientNotesActuel}

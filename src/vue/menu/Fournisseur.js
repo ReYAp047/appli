@@ -19,12 +19,11 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import {afficheFournisseurs} from '../../controleur/menu/crudFournisseur';
 
-
-
    export default function Fournisseur({ navigation }) {
      afficheFournisseurs();
-     const cb = () => {
-                    navigation.push('DetailFournisseur');
+     const cb = (item) => {
+       console.log(item);
+        navigation.push('DetailFournisseur',{ item },);
          }
 
     return (
@@ -41,7 +40,7 @@ import {afficheFournisseurs} from '../../controleur/menu/crudFournisseur';
     <View style={{flexDirection: 'row'}}>
 
       <View style={{flex: 4, marginTop: 10}}>
-        <TouchableOpacity onPress={() => cb()}>
+        <TouchableOpacity onPress={() => cb(item)}>
           <Text style={FournisseurStyles.Text}> {item.nom} </Text>
         </TouchableOpacity>
       </View>

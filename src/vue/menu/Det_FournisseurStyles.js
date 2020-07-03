@@ -2,7 +2,7 @@ import {StyleSheet}from 'react-native';
 
 const Det_FournisseurStyles =StyleSheet.create({
 
-  Containe: {
+  Container: {
     flex: 1
   },
 
@@ -23,25 +23,28 @@ const Det_FournisseurStyles =StyleSheet.create({
   Iconuser: {
     width: 40,
     height: 40,
+    marginTop: 25,
     marginLeft: '5%'
 
   },
 
- Icontel: {
+  Icontel: {
    width: 35,
    height: 35,
+   marginTop: 25,
    marginLeft: '5%'
- },
+  },
 
- Iconemail: {
+  Iconemail: {
    width: 45,
    height: 45,
+   marginTop: 25,
    marginLeft: '5%'
- },
+  },
 
 
 
- Modifier: {
+  Modifier: {
    height: 50,
    width: 150,
    borderRadius: 25,
@@ -49,15 +52,15 @@ const Det_FournisseurStyles =StyleSheet.create({
    justifyContent: 'center',
    marginLeft: '6%',
    alignItems: 'center'
- },
+  },
 
- Logobtn:{
+  Logobtn:{
    width: 25,
    marginLeft: 10,
    height :25
- },
+  },
 
- textbtn:{
+  textbtn:{
    fontSize: 15,
    textAlign: 'center'
    },
@@ -77,6 +80,5 @@ const Det_FournisseurStyles =StyleSheet.create({
      marginLeft: 10,
      height :20
    },
-
 });
 export default Det_FournisseurStyles;

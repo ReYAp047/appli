@@ -74,6 +74,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
                 style={FournisseurStyles.input}
                 ref={input => { this.fournisseurTelActuel = input }}
                 placeholder={'Telephone'}
+                keyboardType='numeric'
                 placeholderTextColor={'#aaa69d'}
                 underlineColorAndroid='transparent'
                 value={this.state.fournisseurTelActuel}
@@ -95,6 +96,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
             style={FournisseurStyles.input}
             ref={input => { this.fournisseurMailActuel = input }}
             placeholder={'E-mail'}
+            keyboardType='email-address'
             placeholderTextColor={'#aaa69d'}
             underlineColorAndroid='transparent'
             value={this.state.fournisseurMailActuel}
@@ -130,6 +132,7 @@ import Fournisseur from '../../Modele/fournisseur/Fournisseur';
            style={FournisseurStyles.input}
            ref={input => { this.fournisseurNotesActuel = input }}
            placeholder={'Note'}
+           multiline
            placeholderTextColor={'#aaa69d'}
            underlineColorAndroid='transparent'
            value={this.state.fournisseurNotesActuel}

@@ -35,6 +35,7 @@ import {afficheClients} from '../../controleur/menu/crudClient';
           console.log(item);
                        navigation.push('DetailClient',{ item },);
             }
+            
     return (
 
 <View style={{flex: 1, flexDirection: 'column', marginTop: '5%'}}>

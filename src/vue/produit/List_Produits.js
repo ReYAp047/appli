@@ -1,4 +1,4 @@
-  //This is an example code for NavigationDrawer//
+//This is an example code for NavigationDrawer//
 import React, { Component, useState, useEffect } from 'react';
 //import react in our code.
 import { StyleSheet,

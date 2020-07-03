@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native';
 import Det_ClientStyles from './Det_ClientStyles';
 import ClientStyles from './ClientStyles';
@@ -18,7 +19,9 @@ import Supprimer from './images/supprimer.png';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Client from '../../Modele/client/Client';
-
+import {modifierClient} from '../../controleur/menu/crudClient';
+import {supprimerClient} from '../../controleur/menu/crudClient'
+import Cl from './Client';
 class DetailClient extends Component{
 
 
@@ -34,14 +37,53 @@ class DetailClient extends Component{
 
      modifier = () => {
      this.client=new Client();
-     this.client.nom=this.state.clientNomActuel;
-     this.client.tel=this.state.clientTelActuel;
-     this.client.mail=this.state.clientMailActuel;
-     this.client.adresse=this.state.clientAdresseActuel;
-     this.client.notes=this.state.clientNotesActuel;
-     this.client.code=this.state.clientCodeActuel;
+     if(this.state.clientNomActuel){
+       this.client.nom=this.state.clientNomActuel;
+     }else {
+       this.client.nom=it.nom;
+     }
+
+     if(this.state.clientTelActuel){
+       this.client.tel=this.state.clientTelActuel;
+     }else {
+       this.client.tel=it.tel;
+     }
+
+     if(this.state.clientMailActuel){
+       this.client.mail=this.state.clientMailActuel;
+     }else {
+       this.client.mail=it.mail;
+     }
+
+
+     if(this.state.clientAdresseActuel){
+       this.client.adresse=this.state.clientAdresseActuel;
+     }else {
+       this.client.adresse=it.adresse;
+     }
+
+
+     if(this.state.clientNotesActuel){
+       this.client.notes=this.state.clientNotesActuel;
+     }else {
+       this.client.notes=it.notes;
+     }
+
+
+     if(this.state.clientCodeActuel){
+       this.client.code=this.state.clientCodeActuel;
+     }else {
+       this.client.code=it.code;
+     }
+
+
 
      modifierClient(this.client);
+     };
+     supprimer=() => {
+       supprimerClient(it.tel);
+       Alert.alert("Le Client::"+it.nom+"est supprimé avec succès!!");
+       this.props.navigation.push('Cl');
      };
 
 
@@ -49,20 +91,21 @@ class DetailClient extends Component{
 
   render(){
     const { navigation } = this.props;
-  const item = navigation.getParam('item', 'item');
-
+    const item = navigation.getParam('item', 'item');
+global.it=item;
     return(
       <View style={Det_ClientStyles.Container}>
 
             <View >
 
-                            <View style={Det_ClientStyles.Test}>
+                <View style={Det_ClientStyles.Test}>
                   <Image source={User} style={Det_ClientStyles.Iconuser} />
                   <TextInput
                   style={ClientStyles.input}
                   placeholderTextColor={'#aaa69d'}
                   underlineColorAndroid='transparent'
-                  value={item.nom}
+                  value={this.state.clientNomActuel}
+                  defaultValue={item.nom}
                   onChangeText={(text) => this.setState(prevState => ({
                     clientNomActuel: prevState.clientNomActuel =text
                     }))
@@ -75,7 +118,18 @@ class DetailClient extends Component{
 
                             <View style={Det_ClientStyles.Test}>
                   <Image source={Tel} style={Det_ClientStyles.Icontel} />
-                  <Text style={Det_ClientStyles.Text}>{item.tel}</Text>
+                    <TextInput
+                    style={ClientStyles.input}
+                    placeholderTextColor={'#aaa69d'}
+                    underlineColorAndroid='transparent'
+                    value={this.state.clientTelActuel}
+                    keyboardType='numeric'
+                    defaultValue={item.tel}
+                    onChangeText={(text) => this.setState(prevState => ({
+                      clientTelActuel: prevState.clientTelActuel =text
+                      }))
+                    }
+                    />
                             </View>
 
 
@@ -83,28 +137,59 @@ class DetailClient extends Component{
 
                             <View style={Det_ClientStyles.Test}>
                          <Image source={Email} style={Det_ClientStyles.Iconemail} />
-                         <Text style={Det_ClientStyles.Text}>{item.mail}</Text>
+                         <TextInput
+                         style={ClientStyles.input}
+                         placeholderTextColor={'#aaa69d'}
+                         underlineColorAndroid='transparent'
+                         value={this.state.clientMailActuel}
+                         defaultValue={item.mail}
+                         keyboardType='email-address'
+                         onChangeText={(text) => this.setState(prevState => ({
+                           clientMailActuel: prevState.clientMailActuel =text
+                           }))
+                         }
+                         />
                             </View>
 
 
 
                             <View style={Det_ClientStyles.Test}>
                               <Image source={Location} style={Det_ClientStyles.Iconemail} />
-                            <Text style={Det_ClientStyles.Text}>{item.adresse} </Text>
+                                <TextInput
+                                style={ClientStyles.input}
+                                placeholderTextColor={'#aaa69d'}
+                                underlineColorAndroid='transparent'
+                                value={this.state.clientAdresseActuel}
+                                defaultValue={item.adresse}
+                                onChangeText={(text) => this.setState(prevState => ({
+                                  clientAdresseActuel: prevState.clientAdresseActuel =text
+                                  }))
+                                }
+                                />
                             </View>
 
 
 
                             <View style={Det_ClientStyles.Test}>
                               <Image source={Note} style={Det_ClientStyles.Iconemail} />
-                              <Text style={Det_ClientStyles.Text}>{item.notes} </Text>
+                                <TextInput
+                                style={ClientStyles.input}
+                                placeholderTextColor={'#aaa69d'}
+                                underlineColorAndroid='transparent'
+                                value={this.state.clientNotesActuel}
+                                defaultValue={item.notes}
+                                onChangeText={(text) => this.setState(prevState => ({
+                                  clientNotesActuel: prevState.clientNotesActuel =text
+                                  }))
+                                }
+                                />
                             </View>
 
 
 <View style={{flex: 1, flexDirection: 'row' ,justifyContent: 'flex-end',marginRight: 32,marginTop: 70}}>
 
   <View style={Det_ClientStyles.Modifier}>
-    <TouchableOpacity >
+    <TouchableOpacity onPress={this.modifier}>
       <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: '9%'}}>
 
         <Text style={Det_ClientStyles.textbtn}>Modifier</Text>
@@ -117,7 +202,7 @@ class DetailClient extends Component{
   </View>
 
   <View style={Det_ClientStyles.Supprimer}>
-   <TouchableOpacity >
+   <TouchableOpacity onPress={this.supprimer}>
     <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: '9%'}}>
       <Text style={Det_ClientStyles.textbtn}>Supprimer</Text>
        <View>
