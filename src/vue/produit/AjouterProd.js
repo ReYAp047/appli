@@ -16,13 +16,54 @@ import Counter from "react-native-counters";
 
    state={
         produitList: [],  //list des produit
-        produitItemActuel: null, //produit actuel ajouter par le pdg
-        produitcodeBarrectuel: null,
-        produitNomActuel: null,
-        produitPrixActuel: null,
+        produitItemActuel: '', //id du pdg
+        produitcodeBarrectuel: '',
+        codeErreur :'',
+        produitNomActuel: '',
+        nomErreur: '',
+        produitPrixActuel: '',
+        prixErreur:'',
         produitQuentiteActuel: 0,
-        produitFournisseurActuel: null,
+        quentiteErreur: '',
+        produitFournisseurActuel: '',
+        fournisseurErreur: '',
         resourcePath: {},//pour le lien du photo
+      }
+      validationCode(){
+        if(this.state.produitcodeBarrectuel==""){
+          this.setState({codeErreur:"Le code à barre est obligatoire"})
+        }else{
+          this.setState({codeErreur:""})
+        }
+      }
+
+      validationNom(){
+        if(this.state.produitNomActuel==""){
+          this.setState({nomErreur:"Le nom est obligatoire"})
+        }else{
+          this.setState({nomErreur:""})
+        }
+      }
+      validationPrix(){
+        if(this.state.produitPrixActuel==""){
+          this.setState({prixErreur:"Le prix est obligatoire"})
+        }else{
+          this.setState({prixErreur:""})
+        }
+      }
+      validationQuantite(){
+        if(this.state.produitQuentiteActuel==""){
+          this.setState({quentiteErreur:"La quantité est obligatoire"})
+        }else{
+          this.setState({quentiteErreur:""})
+        }
+      }
+      validationFournisseur(){
+        if(this.state.produitFournisseurActuel==""){
+          this.setState({fournisseurErreur:"Le nom du fournisseur est obligatoire"})
+        }else{
+          this.setState({fournisseurErreur:""})
+        }
       }
 
 
@@ -70,14 +111,14 @@ min = () => {
 };
 
 ajouter = () => {
-  this.produit=new Produit();
-  this.produit.idPdg=this.state.produitItemActuel;
-  this.produit.codeBarre=this.state.produitcodeBarrectuel;
-  this.produit.nom=this.state.produitNomActuel;
-  this.produit.prix=this.state.produitPrixActuel;
-  this.produit.quentite=this.state.produitQuentiteActuel;
-  this.produit.fournniseur=this.state.produitFournisseurActuel;
-  this.produit.lien=this.state.resourcePath.uri;
+  this.state.produitItemActuel="pdg2020";
+this.produit=new Produit(this.state.produitItemActuel,
+                        this.state.produitcodeBarrectuel,
+                        this.state.produitQuentiteActuel,
+                        this.state.produitNomActuel,
+                        this.state.produitPrixActuel,
+                        this.state.produitFournisseurActuel,
+                        this.state.resourcePath.uri);
   if(this.state.produitItemActuel
       && this.state.produitcodeBarrectuel
       && this.state.produitNomActuel
@@ -88,25 +129,39 @@ ajouter = () => {
       {
         ajouterProduit(this.produit);
         Alert.alert("Le Produit :"+ this.produit.nom+"est Ajouter avec succès!!");
-        this.produitcodeBarrectuel.clear();
-        this.produitNomActuel.clear();
-        this.produitPrixActuel.clear();
-        this.produitQuentiteActuel.clear();
-        this.produitFournisseurActuel.clear();
-        this.state.resourcePath.uri="";
         this.props.navigation.push('List_Produits');
-      }else{
-        switch(this.produit) {
 
-     case this.produit.codeBarre==null :
-        Alert.alert('Erreur', 'Code A barre requis', [
-          {text: 'Claire'}
+      }else if (this.state.resourcePath.uri==null) {
+        Alert.alert('Erreur', 'Ajouter une image pour le produit', [
+          {text: 'Claire',
+            color: 'red'}
         ]);
-       break;
-     }
-
+      }else if (this.state.produitcodeBarrectuel=='') {
+        Alert.alert('Erreur', 'Le Code à barre est obligtoire', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
+      }else if (this.state.produitNomActuel=='') {
+        Alert.alert('Erreur', 'Le Nom du produit est obligtoire', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
+      }else if (this.state.produitPrixActuel=='') {
+        Alert.alert('Erreur', 'Le Prix est obligtoire', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
+      }else if (this.state.produitQuentiteActuel==0) {
+        Alert.alert('Erreur', 'La Quentité est obligtoire', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
+      }else {
+        Alert.alert('Erreur', 'Le Fournisseur est obligtoire', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
       }
-
 
 
 };
@@ -153,6 +208,7 @@ ajouter = () => {
                  placeholder="Code à barre"
                  keyboardType='numeric'
                  value={this.state.produitcodeBarrectuel}
+                  onBlur={()=>this.validationCode()}
                  onChangeText={(text) => this.setState(prevState => ({
                    produitcodeBarrectuel: prevState.produitcodeBarrectuel =text
                  }))
@@ -171,6 +227,9 @@ ajouter = () => {
           </View>
 
         </View>
+        <View>
+           <Text style={{color: 'red',marginLeft: "35%"}}>{this.state.codeErreur}</Text>
+        </View>
 
         <View>
           <Text style={{fontSize: 17}}>Nom Du Produit:</Text>
@@ -182,6 +241,7 @@ ajouter = () => {
                      style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '2%', fontSize: 20}}
                      placeholder="Ex:Produit1"
                      value={this.state.produitNomActuel}
+                      onBlur={()=>this.validationNom()}
                      onChangeText={(text) => this.setState(prevState => ({
                        produitNomActuel: prevState.produitNomActuel =text
 
@@ -189,6 +249,9 @@ ajouter = () => {
                    }
                    ref={input => { this.produitNomActuel = input }}
               />
+        </View>
+        <View>
+           <Text style={{color: 'red',marginLeft: "35%"}}>{this.state.nomErreur}</Text>
         </View>
 
 
@@ -212,6 +275,7 @@ ajouter = () => {
                        placeholder="0"
                        keyboardType='numeric'
                        value={this.state.produitQuentiteActuel}
+                        onBlur={()=>this.validationQuantite()}
                        onChangeText={(text) => this.setState(prevState => ({
                          produitQuentiteActuel: prevState.produitQuentiteActuel =text
 
@@ -238,6 +302,7 @@ ajouter = () => {
                     </View>
             </View>
 
+
           </View>
           <View style={{flexDirection: 'column'}}>
             <View>
@@ -249,12 +314,16 @@ ajouter = () => {
                  placeholder="Ex:10"
                  keyboardType='numeric'
                  value={this.state.produitPrixActuel}
+                  onBlur={()=>this.validationPrix()}
                  onChangeText={(text) => this.setState(prevState => ({
                     produitPrixActuel: prevState.produitPrixActuel =text
                  }))
                }
                ref={input => { this.produitPrixActuel = input }}
                  />
+            </View>
+            <View>
+               <Text style={{color: 'red',marginRight: "3%"}}>{this.state.prixErreur}</Text>
             </View>
           </View>
 
@@ -272,6 +341,7 @@ ajouter = () => {
              style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20}}
              placeholder="Ex:Foulen"
              value={this.state.produitFournisseurActuel}
+              onBlur={()=>this.validationFournisseur()}
              onChangeText={(text) => this.setState(prevState => ({
                produitFournisseurActuel: prevState.produitFournisseurActuel =text
 
@@ -279,6 +349,9 @@ ajouter = () => {
            }
            ref={input => { this.produitFournisseurActuel = input }}
            />
+        </View>
+        <View>
+           <Text style={{color: 'red',marginLeft: "35%"}}>{this.state.fournniseur}</Text>
         </View>
 
         <View style={{flexDirection: 'row-reverse'}}>
@@ -346,7 +419,7 @@ ajouter = () => {
         width: '100%',
         height: 50,
         backgroundColor: '#6A6A6A',
-        marginTop: '3%',
+        marginTop: '2%',
     },
 
     detail_text: {

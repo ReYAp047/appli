@@ -12,6 +12,7 @@ export function ajouterProduit(produit){
             const quentite=produit.quentite;
               const fournniseur=produit.fournniseur;
                 const lien=produit.lien;
+                  const description=produit.description;
 
   firestore()
     .collection('Produits')
@@ -24,6 +25,7 @@ export function ajouterProduit(produit){
       quentite: quentite,
       fournniseur: fournniseur,
       lien : lien,
+      description: description,
 
     })
     .then(() => {
@@ -64,7 +66,7 @@ export function afficheProduits () {
 
         produits.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.codeBarre,
+          key: documentSnapshot.tel,
         });
 
       });
@@ -74,10 +76,40 @@ export function afficheProduits () {
 
   // Unsubscribe from events when no longer in use
   return () => subscriber();
-}, []);
+  }, []);
 
 
 
 console.log('list prod');
   global.foo = produits;
+}
+
+
+
+
+export function modifierProduit(produit){
+  const idPdg=produit.idPdg;
+    const codeBarre=produit.codeBarre;
+      const nom=produit.nom;
+        const prix=produit.prix;
+          const fournniseur=produit.fournniseur;
+            const lien=produit.lien;
+
+
+            firestore()
+              .collection('Produits')
+              .doc(codeBarre.toString())
+              .update({
+                idPdg: idPdg,
+                codeBarre: codeBarre,
+                nom: nom,
+                prix: prix,
+                fournniseur: fournniseur,
+                lien: lien,
+              })
+              .then(() => {
+                console.log('Produits Modifier!');
+              });
+
+
 }

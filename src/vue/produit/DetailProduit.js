@@ -13,9 +13,51 @@ import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import AjouterProd from './AjouterProd';
+import List_Produits from './List_Produits';
 import {afficheProduits} from '../../controleur/produit/crudProduit';
 import {nombreProduits} from '../../controleur/produit/crudProduit';
+import Produit from '../../Modele/produit/Produit';
 export default class DetailProduit extends Component{
+  state={
+       produitNomActuel: '',
+       nomErreur: '',
+       produitPrixActuel: '',
+       prixErreur:'',
+       produitQuentiteActuel: '',
+       quentiteErreur: 'bien',
+       produitFournisseurActuel: '',
+       fournisseurErreur: '',
+       resourcePath: {},//pour le lien du photo
+     }
+     modifier = (b) => {
+       this.produit=new Produit(item.idPdg,
+                               item.codeBarre,
+                               item.quentite,
+                               item.nom,
+                               item.prix,
+                               item.fournniseur,
+                               item.lien);
+
+  if(this.state.produitQuentiteActuel){
+  let x = parseInt(this.state.produitQuentiteActuel, 10);
+  let y = parseInt(this.produit.quentite, 10);
+  x+=y;
+  this.produit.quentite=x;
+}
+
+     if(this.state.produitPrixActuel){
+      this.produit.prix=this.state.produitPrixActuel;
+     }
+     if(this.state.produitNomActuel){
+       this.prdouit.nom=this.state.produitNomActuel;
+     }
+
+          modifierProduit(this.produit);
+          Alert.alert("Le Produit::est MODIFIER avec succès!!");
+          this.props.navigation.push('List_Produits');
+
+     }
+
   render(){
     const { navigation } = this.props;
     const item = navigation.getParam('item', 'item');
@@ -23,32 +65,42 @@ global.pr=item;
 return (
           <View>
             <View style={{flexDirection: 'row',marginTop: "10%"}}>
-              <View style={{flex: 2,marginLeft: "5%"}}>
-                <Image
-                  source={require('./pages_images/produit_icone.png')}
-                  style={{height: 130,width: 130, }}
-                />
+              <View style={{flex: 2,marginLeft: "5%",marginTop: "6%"}}>
+              <Image
+                source={{ uri: item.lien }}
+                style={{ width: 120, height: 130,marginRight: 15 }}
+              />
               </View>
               <View style={{flexDirection: 'column',flex: 4}}>
                 <View style={{flexDirection: 'row',justifyContent: 'space-between',marginTop: "5%",marginLeft: "5%"}}>
-                  <View>
+                  <View style={{marginTop: "5%"}}>
                     <Text>Nom du produit</Text>
                   </View>
                   <View>
-                    <Text style={{marginRight: "20%",  fontWeight: 'bold',  fontSize: 16}}>{item.nom}</Text>
+                  <TextInput
+                           style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '2%', fontSize: 20}}
+                           placeholder="Ex:Produit1"
+                           defaultValue={item.nom}
+                           onChangeText={(text) => this.setState(prevState => ({
+                             produitNomActuel: prevState.produitNomActuel =text
+
+                           }))
+                         }
+                         ref={input => { this.produitNomActuel = input }}
+                    />
                   </View>
                 </View>
 
-                <View style={{flexDirection: 'row',marginTop: "9%",marginLeft: "10%",justifyContent: 'space-between'}}>
-                  <View style={{flexDirection: 'column'}}>
+                <View style={{marginTop: "9%",marginLeft: "4%",justifyContent: 'space-between'}}>
+                  <View style={{flexDirection: 'row',marginBottom: "11%"}}>
                     <View>
                       <Text> Quentité</Text>
                     </View>
                     <View style={{marginLeft: "20%"}}>
-                      <Text style={{fontWeight: 'bold',fontSize: 16}}> {item.quentite}</Text>
+                      <Text style={{fontWeight: 'bold',fontSize: 16}}> {item.Quentite}dt</Text>
                     </View>
                   </View>
-                  <View style={{flexDirection: 'column',marginRight: "23%"}}>
+                  <View style={{flexDirection: 'row',marginRight: "23%"}}>
                     <View>
                       <Text> Prix/Pièce</Text>
                     </View>
@@ -61,15 +113,6 @@ return (
             </View>
 
             <View style={{marginTop: "10%",flexDirection: 'row',justifyContent: 'space-between'}}>
-              <View style={{flexDirection: 'column',marginLeft: "9%"}}>
-                <View>
-                  <Text>Code Interne </Text>
-                </View>
-                <View style={{marginLeft: "20%"}}>
-                  <Text style={{fontWeight: 'bold',fontSize: 15,marginTop: "7%"}}>{item.code} </Text>
-                </View>
-              </View>
-
               <View style={{flexDirection: 'column',marginLeft: "9%",marginRight: "5%"}}>
                 <View style={{flexDirection: 'row'}}>
                   <View>
@@ -78,7 +121,7 @@ return (
                   <View>
                     <Image
                       source={require('./pages_images/code_a_barre.png')}
-                      style={{height: 23,width: 60}}
+                      style={{height: 30,width: 40}}
                     />
                   </View>
                 </View>
@@ -88,20 +131,9 @@ return (
               </View>
             </View>
 
-            <View style={{flexDirection: 'column',marginTop: "9%",marginLeft: "9%"}}>
-                <View>
-                  <Text>{item.description}</Text>
-                </View>
-                <View>
-                  <TextInput
-                      multiline={true}
-                      numberOfLines={4}
-                      placeholder="Ici est la description du produit"
-                   />
-                </View>
-            </View>
 
-            <View style={{  width: "100%",height: 35,backgroundColor: '#000000'}}>
+
+            <View style={{  width: "100%",height: 35,backgroundColor: '#000000',marginTop: "30%"}}>
               <View style={{alignItems: 'center',marginTop: "1%"}}>
                 <Text style={{color: "white"}}>Gestion du produit</Text>
               </View>
@@ -109,9 +141,11 @@ return (
 
             <View style={{flexDirection: 'row',marginTop: "5%",justifyContent: 'space-between',marginRight: "10%"}}>
               <View style={{marginLeft: "11%",flexDirection: 'row',width: 120,height: 60,borderRadius: 15/2,backgroundColor: '#009F00',}}>
-                <View style={{marginTop: "8%",marginLeft: "5%"}}>
-                  <Text style={{color: "white",marginTop: "13%",marginLeft: "6%",fontWeight: 'bold',}}>Entrée</Text>
-                </View>
+                <TouchableOpacity onPress={this.modifier}>
+                  <View style={{marginTop: "8%",marginLeft: "5%"}}>
+                    <Text style={{color: "white",marginTop: "13%",marginLeft: "6%",fontWeight: 'bold',}}>Entrée</Text>
+                  </View>
+                </TouchableOpacity>
                 <View style={{marginTop: "12%",marginLeft: "12%"}}>
                   <Image
                     source={require('./pages_images/ent.png')}
@@ -138,20 +172,34 @@ return (
             </View>
 
             <View style={{marginTop: "7%",flexDirection: 'row'}}>
-              <View>
+              <View style={{marginLeft: "3%"}}>
                 <Text>1x</Text>
               </View>
               <View style={{marginLeft: "5%"}}>
               <TextInput
-                 style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '6%', fontSize: 20,marginTop: '10%'}}
-                 placeholder="Quentité"
-              />
+                       style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '2%', fontSize: 20}}
+                       placeholder="Quantité"
+                       keyboardType='numeric'
+                       onChangeText={(text) => this.setState(prevState => ({
+                         produitQuentiteActuel: prevState.produitQuentiteActuel =text
+
+                       }))
+                     }
+                     ref={input => { this.produitQuentiteActuel = input }}
+                />
               </View>
               <View style={{marginLeft: "20%"}}>
               <TextInput
-                 style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '6%', fontSize: 20,marginTop: '10%'}}
-                 placeholder="Prix"
-              />
+                       style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '2%', fontSize: 20}}
+                       placeholder="Prix"
+                       keyboardType='numeric'
+                       onChangeText={(text) => this.setState(prevState => ({
+                         produitPrixActuel: prevState.produitPrixActuel =text
+
+                       }))
+                     }
+                     ref={input => { this.produitPrixActuel = input }}
+                />
               </View>
             </View>
 
