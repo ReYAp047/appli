@@ -9,7 +9,7 @@ export default class Screen4 extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text style={{ fontSize: 23 }}> Fournisseur </Text>
+        <Text style={{ fontSize: 23 }}> Deconnexion </Text>
       </View>
     );
   }

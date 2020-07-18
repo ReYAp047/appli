@@ -10,7 +10,6 @@ export function ajouterFournisseur(fournisseur){
       const nom=fournisseur.nom;
         const notes=fournisseur.notes;
           const tel=fournisseur.tel;
-            const code=fournisseur.code;
 
 
   firestore()
@@ -22,10 +21,9 @@ export function ajouterFournisseur(fournisseur){
       nom: nom,
       notes: notes,
       tel: tel,
-      code: code,
     })
     .then(() => {
-      console.log('Fournisseur Ajouter!');
+      console.log('FournisseursFavoris Ajouter!');
     });
 
 
@@ -46,7 +44,7 @@ export function afficheFournisseurs () {
 
         fournisseurs.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.code,
+          key: documentSnapshot.tel,
         });
 
       });
@@ -60,7 +58,7 @@ export function afficheFournisseurs () {
 
 
 
-console.log('List Fournisseur charger !');
+console.log('List FournisseursFavoris charger !');
   global.fr = fournisseurs;
 }
 
@@ -72,23 +70,20 @@ export function modifierFournisseur(fournisseur){
       const nom=fournisseur.nom;
         const notes=fournisseur.notes;
           const tel=fournisseur.tel;
-            const code=fournisseur.code;
 
             firestore()
-    .collection('Fournisseurs')
-    .doc(tel.toString())
-    .update({
-      adresse: adresse,
-      mail: mail,
-      nom: nom,
-      notes: notes,
-      tel: tel,
-      code: code,
-
-    })
-    .then(() => {
-      console.log('Fournisseur Modifier!');
-    });
+              .collection('Fournisseurs')
+              .doc(tel.toString())
+              .update({
+                adresse: adresse,
+                mail: mail,
+                nom: nom,
+                notes: notes,
+                tel: tel,
+              })
+              .then(() => {
+                console.log('FournisseursFavoris Modifier!');
+              });
 
 
 }

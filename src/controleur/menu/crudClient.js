@@ -10,11 +10,10 @@ export function ajouterClient(client){
       const nom=client.nom;
         const notes=client.notes;
           const tel=client.tel;
-            const code=client.code;
 
 
   firestore()
-    .collection('Clients')
+    .collection('ClientsFavoris')
     .doc(tel)
     .set({
       adresse: adresse,
@@ -22,10 +21,9 @@ export function ajouterClient(client){
       nom: nom,
       notes: notes,
       tel: tel,
-      code: code,
     })
     .then(() => {
-      console.log('Client Ajouter!');
+      console.log('ClientsFavoris Ajouter!');
     });
 
 
@@ -38,7 +36,7 @@ export function afficheClients () {
 
   useEffect(() => {
   const subscriber = firestore()
-    .collection('Clients')
+    .collection('ClientsFavoris')
     .onSnapshot(querySnapshot => {
       const clients = [];
 
@@ -60,7 +58,7 @@ export function afficheClients () {
 
 
 
-console.log('List Client charger !');
+console.log('List ClientsFavoris charger !');
   global.cl = clients;
 }
 
@@ -75,10 +73,9 @@ export function modifierClient(client){
       const nom=client.nom;
         const notes=client.notes;
           const tel=client.tel;
-            const code=client.code;
 
             firestore()
-              .collection('Clients')
+              .collection('ClientsFavoris')
               .doc(tel.toString())
               .update({
                 adresse: adresse,
@@ -86,10 +83,9 @@ export function modifierClient(client){
                 nom: nom,
                 notes: notes,
                 tel: tel,
-                code: code,
               })
               .then(() => {
-                console.log('Client Modifier!');
+                console.log('ClientsFavoris Modifier!');
               });
 
 
@@ -99,7 +95,7 @@ export function modifierClient(client){
 export function supprimerClient(tel){
 
   firestore()
-    .collection('Clients')
+    .collection('ClientsFavoris')
     .doc(tel.toString())
     .delete()
     .then(() => {

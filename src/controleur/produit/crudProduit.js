@@ -5,23 +5,22 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 export function ajouterProduit(produit){
-  const code=produit.code;
+  const idPdg=produit.idPdg;
     const codeBarre=produit.codeBarre;
       const nom=produit.nom;
-        const date=produit.date;
-          const heur=produit.heur;
+        const prix=produit.prix;
             const quentite=produit.quentite;
               const fournniseur=produit.fournniseur;
                 const lien=produit.lien;
 
   firestore()
     .collection('Produits')
-    .add({
-      code: code,
+    .doc(codeBarre)
+    .set({
+      idPdg: idPdg,
       codeBarre: codeBarre,
       nom: nom,
-      date: date,
-      heur: heur,
+      prix: prix,
       quentite: quentite,
       fournniseur: fournniseur,
       lien : lien,
@@ -65,7 +64,7 @@ export function afficheProduits () {
 
         produits.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.code,
+          key: documentSnapshot.codeBarre,
         });
 
       });

@@ -15,7 +15,8 @@ import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import AjouterProd from './AjouterProd';
-import Screen6 from './Screen6';
+
+import DetailProduit from './DetailProduit';
 
 import {afficheProduits} from '../../controleur/produit/crudProduit';
 import {nombreProduits} from '../../controleur/produit/crudProduit';
@@ -60,6 +61,11 @@ class B {
       console.log("foo",foo);
 
 }
+
+const cb = (item) => {
+  console.log(item);
+               navigation.push('DetailProduit',{ item },);
+    }
     return (
 
 <View style={{flex: 1, flexDirection: 'column'}}>
@@ -108,7 +114,9 @@ class B {
          </View>
 
          <View style={{flex: 5,marginTop: 14, marginLeft: 8}}>
-             <Text style={{ fontSize: 20 }}> {item.nom} </Text>
+           <TouchableOpacity onPress={() => cb(item)}>
+               <Text style={{ fontSize: 20 }}> {item.nom} </Text>
+            </TouchableOpacity>
          </View>
 
          <View style={styles.produit_circle} >

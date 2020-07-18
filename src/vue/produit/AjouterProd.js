@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import {View, Text,Image, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
-import {StackNavigator} from "react-navigation";
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 import RNPickerSelect from 'react-native-picker-select';
 import Produit from '../../Modele/produit/Produit';
+import {afficheProduits} from '../../controleur/produit/crudProduit';
+import {nombreProduits} from '../../controleur/produit/crudProduit';
 import {ajouterProduit} from '../../controleur/produit/crudProduit';
+import List_Produits from './List_Produits';
 import ImagePicker from 'react-native-image-picker';
+import Counter from "react-native-counters";
 
  export default class AjouterProd extends Component {
 
@@ -14,9 +19,8 @@ import ImagePicker from 'react-native-image-picker';
         produitItemActuel: null, //produit actuel ajouter par le pdg
         produitcodeBarrectuel: null,
         produitNomActuel: null,
-        produitDateActuel: null,
-        produitHeurActuel: null,
-        produitQuentiteActuel: null,
+        produitPrixActuel: null,
+        produitQuentiteActuel: 0,
         produitFournisseurActuel: null,
         resourcePath: {},//pour le lien du photo
       }
@@ -51,32 +55,58 @@ import ImagePicker from 'react-native-image-picker';
 
 
 
+plus = () => {
+  let x = parseInt(this.state.produitQuentiteActuel, 10);
+  x+=1;
+  this.state.produitQuentiteActuel=x;
+  console.log(this.state.produitQuentiteActuel);
+};
 
-onProduitAjouter = (produit) => {
-  console.log("Produit Ajouter!!");
-  console.log(produit);
-}
+min = () => {
+  let x = parseInt(this.state.produitQuentiteActuel, 10);
+  x-=1;
+  this.state.produitQuentiteActuel=x;
+  console.log(this.state.produitQuentiteActuel);
+};
 
 ajouter = () => {
-this.produit=new Produit();
-this.produit.code=this.state.produitItemActuel;
-this.produit.codeBarre=this.state.produitcodeBarrectuel;
-this.produit.nom=this.state.produitNomActuel;
-this.produit.date=this.state.produitDateActuel;
-this.produit.heur=this.state.produitHeurActuel;
-this.produit.quentite=this.state.produitQuentiteActuel;
-this.produit.fournniseur=this.state.produitFournisseurActuel;
-this.produit.lien=this.state.resourcePath.uri;
-console.log(this.state.resourcePath.uri);
-ajouterProduit(this.produit);
-this.produitItemActuel.clear();
-this.produitcodeBarrectuel.clear();
-this.produitNomActuel.clear();
-this.produitDateActuel.clear();
-this.produitHeurActuel.clear();
-this.produitQuentiteActuel.clear();
-this.produitFournisseurActuel.clear();
-this.state.resourcePath.uri="";
+  this.produit=new Produit();
+  this.produit.idPdg=this.state.produitItemActuel;
+  this.produit.codeBarre=this.state.produitcodeBarrectuel;
+  this.produit.nom=this.state.produitNomActuel;
+  this.produit.prix=this.state.produitPrixActuel;
+  this.produit.quentite=this.state.produitQuentiteActuel;
+  this.produit.fournniseur=this.state.produitFournisseurActuel;
+  this.produit.lien=this.state.resourcePath.uri;
+  if(this.state.produitItemActuel
+      && this.state.produitcodeBarrectuel
+      && this.state.produitNomActuel
+      && this.state.produitPrixActuel
+      && this.state.produitQuentiteActuel
+      && this.state.produitFournisseurActuel
+      && this.state.resourcePath.uri)
+      {
+        ajouterProduit(this.produit);
+        Alert.alert("Le Produit :"+ this.produit.nom+"est Ajouter avec succès!!");
+        this.produitcodeBarrectuel.clear();
+        this.produitNomActuel.clear();
+        this.produitPrixActuel.clear();
+        this.produitQuentiteActuel.clear();
+        this.produitFournisseurActuel.clear();
+        this.state.resourcePath.uri="";
+        this.props.navigation.push('List_Produits');
+      }else{
+        switch(this.produit) {
+
+     case this.produit.codeBarre==null :
+        Alert.alert('Erreur', 'Code A barre requis', [
+          {text: 'Claire'}
+        ]);
+       break;
+     }
+
+      }
+
 
 
 };
@@ -116,31 +146,12 @@ this.state.resourcePath.uri="";
           </View>
         </View>
 
-
-
-
-        <View>
-          <Text style={{fontSize: 17, marginTop: '5%'}}>Code:</Text>
-        </View>
-
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View>
-            <TextInput
-               style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '6%', fontSize: 20,marginTop: '10%'}}
-               placeholder="Ex:0001"
-               value={this.state.produitItemActuel}
-               onChangeText={(text) => this.setState(prevState => ({
-                 produitItemActuel: prevState.produitItemActuel =text
-                 }))
-               }
-               ref={input => { this.produitItemActuel = input }}
-            />
-          </View>
-
+        <View style={{flexDirection: 'row',marginLeft: "30%"}}>
           <View style={{alignItems: 'center'}}>
                 <TextInput
                  style={{ height: 50, borderColor: 'gray', borderWidth: 0 ,marginLeft: '10%',fontSize: 20,marginTop: '10%'}}
                  placeholder="Code à barre"
+                 keyboardType='numeric'
                  value={this.state.produitcodeBarrectuel}
                  onChangeText={(text) => this.setState(prevState => ({
                    produitcodeBarrectuel: prevState.produitcodeBarrectuel =text
@@ -190,85 +201,67 @@ this.state.resourcePath.uri="";
 
 
         <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
-
-          <View>
-            <Text style={styles.detail_text}>Date</Text>
-          </View>
-
-          <View>
-              <Text style={styles.detail_text}>Heur</Text>
-          </View>
-
-        </View>
-
-        <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
-
-          <View>
-              <TextInput
-                   style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20,}}
-                   placeholder="13/06/2020"
-                   value={this.state.produitDateActuel}
-                   onChangeText={(text) => this.setState(prevState => ({
-                       produitDateActuel: prevState.produitDateActuel =text
-
-                   }))
-                 }
-                 ref={input => { this.produitDateActuel = input }}
-                   />
-          </View>
-
-          <View>
-              <TextInput
-               style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20}}
-               placeholder="18:00"
-               value={this.state.produitHeurActuel}
-               onChangeText={(text) => this.setState(prevState => ({
-                  produitHeurActuel: prevState.produitHeurActuel =text
-               }))
-             }
-             ref={input => { this.produitHeurActuel = input }}
-               />
-          </View>
-
-        </View>
-
-        <View>
-          <Text style={{fontSize: 17}}>Quentité:</Text>
-        </View>
-
-        <View style={{alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
-              <View style={{alignItems: 'center'}}>
-                  <TextInput
-                     style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20}}
-                     placeholder="0"
-                     value={this.state.produitQuentiteActuel}
-                     onChangeText={(text) => this.setState(prevState => ({
-                       produitQuentiteActuel: prevState.produitQuentiteActuel =text
+            <View style={{marginTop: 10,marginRight: 5}}>
+              <Text style={{fontSize: 17}}>Quentité:</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+                <View style={{alignItems: 'center'}}>
+                    <TextInput
+                       style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20}}
+                       placeholder="0"
+                       keyboardType='numeric'
+                       value={this.state.produitQuentiteActuel}
+                       onChangeText={(text) => this.setState(prevState => ({
+                         produitQuentiteActuel: prevState.produitQuentiteActuel =text
 
-                     }))
-                   }
-                   ref={input => { this.produitQuentiteActuel = input }}
-                   />
-              </View>
-              <View>
-                <TouchableOpacity>
-                  <Image
-                    source={require('./pages_images/plus.png')}
-                    style={{ width: 50, height: 50, marginLeft: 10,marginTop: '7%'}}
-                  />
-                </TouchableOpacity>
+                       }))
+                     }
+                     ref={input => { this.produitQuentiteActuel = input }}
+                     />
                 </View>
                 <View>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={this.plus}>
                     <Image
-                      source={require('./pages_images/minus.png')}
+                      source={require('./pages_images/plus.png')}
                       style={{ width: 50, height: 50, marginLeft: 10,marginTop: '7%'}}
                     />
                   </TouchableOpacity>
                   </View>
+                  <View>
+                    <TouchableOpacity onPress={this.min}>
+                      <Image
+                        source={require('./pages_images/minus.png')}
+                        style={{ width: 50, height: 50, marginLeft: 10,marginTop: '7%'}}
+                      />
+                    </TouchableOpacity>
+                    </View>
+            </View>
+
           </View>
+          <View style={{flexDirection: 'column'}}>
+            <View>
+                <Text style={styles.detail_text}>Prix/Dt</Text>
+            </View>
+            <View>
+                <TextInput
+                 style={{ height: 50, borderColor: 'gray', borderWidth: 0 , fontSize: 20}}
+                 placeholder="Ex:10"
+                 keyboardType='numeric'
+                 value={this.state.produitPrixActuel}
+                 onChangeText={(text) => this.setState(prevState => ({
+                    produitPrixActuel: prevState.produitPrixActuel =text
+                 }))
+               }
+               ref={input => { this.produitPrixActuel = input }}
+                 />
+            </View>
+          </View>
+
+
         </View>
+
+
 
         <View>
           <Text style={{fontSize: 17}}>Fournisseur:</Text>

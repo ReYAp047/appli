@@ -23,19 +23,11 @@ import {afficheClients} from '../../controleur/menu/crudClient';
 
    export default function Client({ navigation }) {
      afficheClients();
-
-        const actionOnRow = (item) => {
-          console.log('Selected Item :',item);
-          Alert.alert("Clicked Item:::"+item.nom);
-          // ToastAndroid.show(""+item.i,ToastAndroid.short);
-        }
-
-
         const cb = (item) => {
           console.log(item);
                        navigation.push('DetailClient',{ item },);
             }
-            
+
     return (
 
 <View style={{flex: 1, flexDirection: 'column', marginTop: '5%'}}>

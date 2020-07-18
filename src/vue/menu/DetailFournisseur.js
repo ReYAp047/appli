@@ -7,48 +7,59 @@ import {
   TextInput,
   Alert
 } from 'react-native';
-import FournisseurStyles from './FournisseurStyles';
 import Det_FournisseurStyles from './Det_FournisseurStyles';
+import FournisseurStyles from './FournisseurStyles';
 import User from './images/user.png';
-import Tel from './images/tel.png';
+import Note from './images/note.png';
+import Location from './images/location.png';
 import Email from './images/email.webp';
 import Modifier from './images/modifier.png';
 import Supprimer from './images/supprimer.png';
-import Note from './images/note.png';
-import Location from './images/location.png';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import Fournisseur from './Fournisseur';
+import Fournisseur from '../../Modele/fournisseur/Fournisseur';
 import {modifierFournisseur} from '../../controleur/menu/crudFournisseur';
-import {supprimerFournisseur} from '../../controleur/menu/crudFournisseur';
-
-class DetailFournisseur  extends Component{
+import {supprimerFournisseur} from '../../controleur/menu/crudFournisseur'
+import List_Fournisseurs from './Fournisseur';
+class DetailFournisseur extends Component{
 
 
   state={
        fournisseurNomActuel: null,
-       fournisseurTelActuel: null,
-       fournisseurMailActuel: null,
+       nomErreur: '',
+       fournisseurMailActuel: '',
+       mailErreur: '',
        fournisseurAdresseActuel: null,
        fournisseurNotesActuel: null,
-       fournisseurCodeActuel : null,
-
      }
 
-     modifier = () => {
-       console.log("je suis dans modifier fournisseur");
-     this.fournisseur=new Fournisseur();
+     validationNom(){
+       if(this.state.fournisseurNomActuel==""){
+         this.setState({nomErreur:"Ce Champ est obligatoire"})
+       }else{
+         this.setState({nomErreur:""})
+       }
+     }
 
+
+     validationMail(){
+       if(this.state.fournisseurMailActuel!="")
+       {const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+          if(!expression.test(String(this.state.fournisseurMailActuel).toLowerCase()))
+          {
+            this.setState({mailErreur:"Format d'email incorrect"})
+          }else{
+         this.setState({mailErreur:""})
+        }}
+}
+
+     modifier = () => {
+     this.fournisseur=new Fournisseur();
+     //ken el champ t3aba eb 7aja jdida ne5ouh else ne5ou le9dim
      if(this.state.fournisseurNomActuel){
        this.fournisseur.nom=this.state.fournisseurNomActuel;
      }else {
        this.fournisseur.nom=itf.nom;
-     }
-
-     if(this.state.fournisseurTelActuel){
-       this.fournisseur.tel=this.state.fournisseurTelActuel;
-     }else {
-       this.fournisseur.tel=itf.tel;
      }
 
      if(this.state.fournisseurMailActuel){
@@ -57,13 +68,11 @@ class DetailFournisseur  extends Component{
        this.fournisseur.mail=itf.mail;
      }
 
-
      if(this.state.fournisseurAdresseActuel){
        this.fournisseur.adresse=this.state.fournisseurAdresseActuel;
      }else {
        this.fournisseur.adresse=itf.adresse;
      }
-
 
      if(this.state.fournisseurNotesActuel){
        this.fournisseur.notes=this.state.fournisseurNotesActuel;
@@ -71,85 +80,80 @@ class DetailFournisseur  extends Component{
        this.fournisseur.notes=itf.notes;
      }
 
-
-     if(this.state.fournisseurCodeActuel){
-       this.fournisseur.code=this.state.fournisseurCodeActuel;
-     }else {
-       this.fournisseur.code=itf.code;
-     }
-
-
-
-     modifierFournisseur(this.fournisseur);
+     if(this.state.mailErreur!="Format d'email incorrect")
+     {
+        this.fournisseur.tel=itf.tel;
+        modifierFournisseur(this.fournisseur);
+        Alert.alert("Le Fournisseur::"+itf.nom+"est MODIFIER avec succès!!");
+        this.props.navigation.push('List_Fournisseurs');
+      }else {
+        Alert.alert('Erreur', 'Le format du Mail est incorrect', [
+          {text: 'Claire',
+            color: 'red'}
+        ]);
+      }
      };
      supprimer=() => {
        supprimerFournisseur(itf.tel);
-       Alert.alert("Le Fournisseur::"+itf.nom+"est supprimé avec succès!!");
-       this.props.navigation.push('Fournisseur');
+       Alert.alert("Le Fournisseur::"+itf.nom+"est SUPPRIMER avec succès!!");
+       this.props.navigation.push('List_Fournisseurs');
      };
+
+
 
 
   render(){
     const { navigation } = this.props;
     const item = navigation.getParam('item', 'item');
-    global.itf=item;
+global.itf=item;
+console.log(itf.tel);
+console.log(itf.notes);
     return(
       <View style={Det_FournisseurStyles.Container}>
 
             <View >
 
-             <View style={Det_FournisseurStyles.Test}>
+                <View style={Det_FournisseurStyles.Test}>
                   <Image source={User} style={Det_FournisseurStyles.Iconuser} />
                   <TextInput
                   style={FournisseurStyles.input}
                   placeholderTextColor={'#aaa69d'}
                   underlineColorAndroid='transparent'
-                  value={this.state.fournisseurNomActuel}
+                  onBlur={()=>this.validationNom()}
                   defaultValue={item.nom}
                   onChangeText={(text) => this.setState(prevState => ({
                     fournisseurNomActuel: prevState.fournisseurNomActuel =text
                     }))
                   }
                   />
+                </View>
+                <View style={{width: 300,height: 1,  marginLeft: '5%', backgroundColor: '#000000'}}/>
 
-                            </View>
-
-
-
-                            <View style={Det_FournisseurStyles.Test}>
-                  <Image source={Tel} style={Det_FournisseurStyles.Icontel} />
-                    <TextInput
-                    style={FournisseurStyles.input}
-                    placeholderTextColor={'#aaa69d'}
-                    underlineColorAndroid='transparent'
-                    value={this.state.fournisseurTelActuel}
-                    defaultValue={item.tel}
-                    keyboardType='numeric'
-                    onChangeText={(text) => this.setState(prevState => ({
-                      fournisseurTelActuel: prevState.fournisseurTelActuel =text
-                      }))
-                    }
-                    />
-                            </View>
+                <View>
+                   <Text style={{color: 'red',marginLeft: "6%"}}>{this.state.nomErreur}</Text>
+                </View>
 
 
-
-
-                            <View style={Det_FournisseurStyles.Test}>
+                      <View style={Det_FournisseurStyles.Test}>
                          <Image source={Email} style={Det_FournisseurStyles.Iconemail} />
                          <TextInput
                          style={FournisseurStyles.input}
                          placeholderTextColor={'#aaa69d'}
-                         keyboardType='email-address'
                          underlineColorAndroid='transparent'
-                         value={this.state.fournisseurMailActuel}
+
                          defaultValue={item.mail}
+                         keyboardType='email-address'
+                         onBlur={()=>this.validationMail()}
                          onChangeText={(text) => this.setState(prevState => ({
                            fournisseurMailActuel: prevState.fournisseurMailActuel =text
                            }))
                          }
                          />
-                            </View>
+                      </View>
+                      <View style={{width: 300,height: 1,  marginLeft: '5%', backgroundColor: '#000000'}}/>
+                      <View>
+                         <Text style={{color: 'red',marginLeft: "6%"}}>{this.state.mailErreur}</Text>
+                      </View>
 
 
 
@@ -167,6 +171,8 @@ class DetailFournisseur  extends Component{
                                 }
                                 />
                             </View>
+                            <View style={{width: 300,height: 1,  marginLeft: '5%', backgroundColor: '#000000'}}/>
+
 
 
 
@@ -175,16 +181,17 @@ class DetailFournisseur  extends Component{
                                 <TextInput
                                 style={FournisseurStyles.input}
                                 placeholderTextColor={'#aaa69d'}
+                                underlineColorAndroid='transparent'
                                 value={this.state.fournisseurNotesActuel}
                                 defaultValue={item.notes}
-                                underlineColorAndroid='transparent'
-                                value={item.notes}
                                 onChangeText={(text) => this.setState(prevState => ({
                                   fournisseurNotesActuel: prevState.fournisseurNotesActuel =text
                                   }))
                                 }
                                 />
                             </View>
+                            <View style={{width: 300,height: 1,  marginLeft: '5%', backgroundColor: '#000000'}}/>
+
 
 
 <View style={{flex: 1, flexDirection: 'row' ,justifyContent: 'flex-end',marginRight: 32,marginTop: 70}}>

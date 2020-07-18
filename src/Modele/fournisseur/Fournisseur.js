@@ -1,21 +1,19 @@
 export default class Fournisseur {
 
-adresse: string;
-mail: string;
-nom: string;
-notes: string;
-tel: int;
-code: int;
+  adresse: string;
+  mail: string;
+  nom: string;
+  notes: string;
+  tel: int;
 
 
 
+    constructor(adresse,mail,nom,notes,tel) {
+      this.tel=tel;
+      this.notes=notes;
+      this.nom=nom;
+      this.mail=mail;
+      this.adresse=adresse;
+    }
 
-  constructor(adresse,mail,nom,notes,tel,code) {
-    this.code=code;
-    this.tel=tel;
-    this.notes=notes;
-    this.nom=nom;
-    this.mail=mail;
-    this.adresse=adresse;
   }
-}

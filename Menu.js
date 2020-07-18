@@ -9,13 +9,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 //Import external files
 import Home from './root/home';
-import Screen2 from './src/vue/produit/Screen2';
-import Screen3 from './src/vue/produit/Screen3';
-import Screen4 from './root/Fournisseur';
-import Screen5 from './root//Client';
-import Screen6 from './src/vue/produit/Screen6';
-import List_Produits from './src/vue/produit/List_Produits';
-import AjouterProd from './src/vue/produit/AjouterProd';
+import Fournisseur from './root/Fournisseur';
+import Client from './root//Client';
+import Deconnexion from './src/vue/produit/Deconnexion';
 
 
 
@@ -99,55 +95,10 @@ const FirstActivity_StackNavigator = createStackNavigator({
   },
 });
 
-const Screen2_StackNavigator = createStackNavigator({
-  //All the screen from the Screen2 will be indexed here
-  Second: {
-    screen: Screen2,
-    navigationOptions: ({ navigation }) => ({
-
-      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#0099FF',
-
-
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize: 0,
-        },
-    }),
-  },
-});
-
-
-const Screen3_StackNavigator = createStackNavigator({
-  //All the screen from the Screen3 will be indexed here
-  Third: {
-    screen: Screen3,
-    navigationOptions: ({ navigation }) => ({
-
-      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#0099FF',
-
-
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize: 0,
-        },
-    }),
-  },
-});
-
-
-
-const Screen4_StackNavigator = createStackNavigator({
-  //All the screen from the Screen4 will be indexed here
+const Fournisseur_StackNavigator = createStackNavigator({
+  //All the screen from the Fournisseur will be indexed here
   Fourth: {
-    screen: Screen4,
+    screen: Fournisseur,
     navigationOptions: ({ navigation }) => ({
 
       headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
@@ -165,10 +116,10 @@ const Screen4_StackNavigator = createStackNavigator({
   },
 });
 
-const Screen5_StackNavigator = createStackNavigator({
-  //All the screen from the Screen5 will be indexed here
+const Client_StackNavigator = createStackNavigator({
+  //All the screen from the Client will be indexed here
   Fifth: {
-    screen: Screen5,
+    screen: Client,
     navigationOptions: ({ navigation }) => ({
 
       headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
@@ -186,31 +137,15 @@ const Screen5_StackNavigator = createStackNavigator({
   },
 });
 
-const Screen6_StackNavigator = createStackNavigator({
-  //All the screen from the Screen6 will be indexed here
-  Sixth: {
-    screen: Screen6,
-    navigationOptions: ({ navigation }) => ({
-
-      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#0099FF',
 
 
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize: 0,
-        },
-    }),
-  },
-});
 
-const AjouterProd_StackNavigator = createStackNavigator({
-  //All the screen from the Screen6 will be indexed here
+
+
+const Deconnexion_StackNavigator = createStackNavigator({
+
   addProd: {
-    screen: AjouterProd,
+    screen: Deconnexion,
     navigationOptions: ({ navigation }) => ({
 
       headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
@@ -227,29 +162,6 @@ const AjouterProd_StackNavigator = createStackNavigator({
     }),
   },
 });
-
-const List_Produits_StackNavigator = createStackNavigator({
-  //All the screen from the Screen6 will be indexed here
-  addProd: {
-    screen: List_Produits,
-    navigationOptions: ({ navigation }) => ({
-
-      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#0099FF',
-
-
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize: 0,
-        },
-    }),
-  },
-});
-
-
 
 
 
@@ -268,53 +180,31 @@ const DrawerNavigatorExample = createDrawerNavigator({
       drawerLabel: 'Accueil',
     },
   },
-  Screen2: {
+
+
+  Fournisseur: {
     //Title
-    screen: Screen2_StackNavigator,
+    screen: Fournisseur_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Contoleur',
+      drawerLabel: 'Fournisseur favoris',
     },
   },
-  Screen3: {
+  Client: {
     //Title
-    screen: Screen3_StackNavigator,
+    screen: Client_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Liveur',
+      drawerLabel: 'Client favoris',
     },
   },
-  Screen4: {
+
+
+
+
+  Deconnexion: {
     //Title
-    screen: Screen4_StackNavigator,
+    screen: Deconnexion_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Fournisseur',
-    },
-  },
-  Screen5: {
-    //Title
-    screen: Screen5_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Client',
-    },
-  },
-  Screen6: {
-    //Title
-    screen: Screen6_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Déconnexion ',
-    },
-  },
-  AjouterProd: {
-    //Title
-    screen: AjouterProd_StackNavigator,
-    navigationOptions: {
-      drawerLabel: ' ',
-    },
-  },
-  List_Produits: {
-    //Title
-    screen: List_Produits_StackNavigator,
-    navigationOptions: {
-      drawerLabel: ' ',
+      drawerLabel: 'Deconnexion',
     },
   },
 });

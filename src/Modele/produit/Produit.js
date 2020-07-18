@@ -1,23 +1,21 @@
 export default class Produit {
 
-code: int;
+idPdg: int;
 codeBarre: int;
 quentite: int;
 nom: string;
-date: string;
-heur: string;
+prix: int;
 lien: string;
 fournniseur: string;
 
 
 
-  constructor(code, codeBarre, quentite, nom, date, heur, fournniseur, lien) {
-    this.code=code;
+  constructor(idpdg, codeBarre, quentite, nom, prix, fournniseur, lien) {
+    this.idpdg=idpdg;
     this.codeBarre=codeBarre;
     this.quentite=quentite;
     this.nom=nom;
-    this.date=date;
-    this.heur=heur;
+    this.prix=prix;
     this.fournniseur=fournniseur;
     this.lien=lien;
   }

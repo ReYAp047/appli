@@ -5,16 +5,15 @@ mail: string;
 nom: string;
 notes: string;
 tel: int;
-code: int;
 
 
 
-  constructor(adresse,mail,nom,notes,tel,code) {
-    this.code=code;
+  constructor(adresse,mail,nom,notes,tel) {
     this.tel=tel;
     this.notes=notes;
     this.nom=nom;
     this.mail=mail;
     this.adresse=adresse;
   }
+
 }
