@@ -15,6 +15,7 @@ import {createAppContainer, DrawerItems,StackNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import AjouterProd from './AjouterProd';
+import CodeBarre from './CodeBarre';
 
 import DetailProduit from './DetailProduit';
 
@@ -149,10 +150,12 @@ const cb = (item) => {
 
       <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
         <View>
+         <TouchableOpacity onPress={() => navigation.navigate('CodeBarre')}>
             <Image
               source={require('./pages_images/code_a_barre.png')}
               style={{height: 80,width: 90 ,marginLeft: 15}}
             />
+            </TouchableOpacity>
         </View>
         <View>
 

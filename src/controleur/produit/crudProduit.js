@@ -93,7 +93,8 @@ export function modifierProduit(produit){
       const nom=produit.nom;
         const prix=produit.prix;
           const fournniseur=produit.fournniseur;
-            const lien=produit.lien;
+            const quentite=produit.quentite;
+              const lien=produit.lien;
 
 
             firestore()
@@ -105,6 +106,7 @@ export function modifierProduit(produit){
                 nom: nom,
                 prix: prix,
                 fournniseur: fournniseur,
+                quentite: quentite,
                 lien: lien,
               })
               .then(() => {
