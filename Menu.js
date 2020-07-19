@@ -10,12 +10,14 @@ import {createStackNavigator} from 'react-navigation-stack';
 //Import external files
 import Home from './root/home';
 import Fournisseur from './root/Fournisseur';
-import Client from './root//Client';
+import Client from './root/Client';
 import Deconnexion from './src/vue/produit/Deconnexion';
+import Commandes from './src/vue/commande/Commandes';
 
 
 
 class NavigationDrawerStructure extends Component {
+  goToCommande = () => {navigation.push('List_Produits');}
   //Structure for the navigatin Drawer
   toggleDrawer = () => {
     //Props to open/close the drawer
@@ -35,12 +37,10 @@ class NavigationDrawerStructure extends Component {
         </View>
 
         <View>
-
-    <Image
-      source={require('./image/logo.png')}
-      style={{ width: 45, height: 45 , marginLeft: 15 ,marginRight: 10}}
-    />
-
+          <Image
+            source={require('./image/logo.png')}
+            style={{ width: 45, height: 45 , marginLeft: 15 ,marginRight: 10}}
+          />
 </View>
 
 <View style={{flex: 1, flexDirection: 'column'}}>
@@ -53,7 +53,7 @@ class NavigationDrawerStructure extends Component {
    </View>
 
  </View>
-
+<TouchableOpacity onPress={this.goToCommande}>
 <View style={{flexDirection: 'row'}}>
 
 <View>
@@ -68,7 +68,7 @@ class NavigationDrawerStructure extends Component {
       </View>
 
     </View>
-
+</TouchableOpacity>
       </View>
     );
   }
@@ -138,6 +138,29 @@ const Client_StackNavigator = createStackNavigator({
 });
 
 
+const Commandes_StackNavigator = createStackNavigator({
+  //All the screen from the Commandes will be indexed here
+  Fifth: {
+    screen: Commandes,
+    navigationOptions: ({ navigation }) => ({
+
+      headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#0099FF',
+
+
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 0,
+        },
+    }),
+  },
+});
+
+
+
 
 
 
@@ -194,6 +217,14 @@ const DrawerNavigatorExample = createDrawerNavigator({
     screen: Client_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Client favoris',
+    },
+  },
+
+  Commandes: {
+    //Title
+    screen: Commandes_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Commandes',
     },
   },
 

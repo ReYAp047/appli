@@ -59,6 +59,7 @@ export default class App extends Component {
     let displayModal;
     //If qrvalue is set then return this view
     if (!this.state.opneScanner) {
+      console.log(this.state.qrvalue);
       return (
         <View style={styles.container}>
             <Text style={styles.heading}>React Native QR Code Example</Text>
